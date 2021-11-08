@@ -11,6 +11,7 @@ import tm2021.lab2.api.service.RestNode;
 @Singleton
 public class NodeResource implements RestNode {
 
+	//TODO Definir com IP proprio
    static public Node n = new Node("10.101.221.191",0);
 
 	private static Logger Log = Logger.getLogger(NodeResource.class.getName());
@@ -20,8 +21,8 @@ public class NodeResource implements RestNode {
 
 
 	@Override
-	public int updateAmount(String userId, int amount, Node node) {
-		Log.info("updateAmount : user = " + userId + "; amount = " + amount + " ; user = " + node);
+	public int updateAmount(String nodeId, int amount, Node node) {
+		Log.info("updateAmount : nodeID: = " + nodeId + "; amount = " + amount + " ; node = " + node);
 		n.setAmount(amount);
 		return amount;
 	}
