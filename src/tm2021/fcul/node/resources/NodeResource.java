@@ -5,12 +5,12 @@ import java.util.logging.Logger;
 import jakarta.inject.Singleton;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.api.service.RestNode;
+import tm2021.fcul.node.NodeProjeto;
 
 @Singleton
 public class NodeResource implements RestNode {
 
-	//TODO Definir com IP proprio
-   static public Node n = new Node("10.101.220.126",0);
+   static public Node n = new Node(NodeProjeto.ip,0);
 
 	private static Logger Log = Logger.getLogger(NodeResource.class.getName());
 	
