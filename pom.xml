@@ -56,6 +56,12 @@
 								<dockerFile>${project.basedir}/Dockerfile</dockerFile>
 							</build>
 						</image>
+						<image>
+							<name>tm2021-zookeeper-${authors}</name>
+							<build>
+								<dockerFile>${project.basedir}/Dockerfile</dockerFile>
+							</build>
+						</image>
 					</images>
 				</configuration>
 			</plugin>
@@ -82,6 +88,10 @@
 			<version>3.0.0</version>
 			<type>pom</type>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -107,6 +117,11 @@
 				<artifactId>jaxb-ri</artifactId>
 				<version>3.0.0</version>
 				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.zookeeper</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>3.4.11</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

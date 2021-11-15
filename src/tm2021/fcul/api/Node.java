@@ -1,4 +1,4 @@
-package tm2021.lab2.api;
+package tm2021.fcul.api;
 
 
 public class Node {

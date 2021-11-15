@@ -1,4 +1,4 @@
-package tm2021.lab2.api.service;
+package tm2021.fcul.api.service;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.PUT;
@@ -7,7 +7,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import tm2021.lab2.api.*;
+import tm2021.fcul.api.*;
 
 @Path(RestNode.PATH)
 public interface RestNode {

@@ -8,4 +8,4 @@ WORKDIR /home/tm
 COPY target/*jar-with-dependencies.jar tm2021.jar
 
 # run Discovery when starting the docker image
-CMD ["java", "-cp", "/home/tm/tm2021.jar", "tm2021.lab2.server.UsersServer"]
+CMD ["java", "-cp", "/home/tm/tm2021.jar", "tm2021.fcul.node.UsersServer"]
