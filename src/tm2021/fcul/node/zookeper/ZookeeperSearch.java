@@ -11,7 +11,7 @@ public class ZookeeperSearch implements  Runnable{
     public void run() {
         final ZookeeperProcessor zk;
         try {
-            zk = new ZookeeperProcessor( "localhost:2181");
+            zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
             List<String> lst = zk.getChildren( PATH);
             for(String i : lst){
                 System.out.println(i);

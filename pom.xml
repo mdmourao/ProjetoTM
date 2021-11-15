@@ -51,15 +51,9 @@
 				<configuration>
 					<images>
 						<image>
-							<name>tm2021-lab2-${authors}</name>
+							<name>projetoTM</name>
 							<build>
-								<dockerFile>${project.basedir}/Dockerfile</dockerFile>
-							</build>
-						</image>
-						<image>
-							<name>tm2021-zookeeper-${authors}</name>
-							<build>
-								<dockerFile>${project.basedir}/Dockerfile</dockerFile>
+								<dockerFile>${project.basedir}/</dockerFile>
 							</build>
 						</image>
 					</images>

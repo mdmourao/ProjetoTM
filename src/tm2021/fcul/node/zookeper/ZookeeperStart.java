@@ -13,7 +13,7 @@ public class ZookeeperStart implements Runnable {
     public void run() {
         try {
 
-            ZookeeperProcessor zk = new ZookeeperProcessor( "localhost:2181");
+            ZookeeperProcessor zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
             zk.write(PATH, CreateMode.PERSISTENT);
 
             int pathHash = Math.abs(NodeProjeto.ip.hashCode());
@@ -27,7 +27,6 @@ public class ZookeeperStart implements Runnable {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }

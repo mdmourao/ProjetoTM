@@ -8,12 +8,21 @@ import tm2021.fcul.node.zookeper.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 public class NodeProjeto {
 
-    public static String ip = "10.101.220.126" ;
+    //Se mantiverem vazio ele vai usar o ip default para a rede
+    // Isto é importante para as imagens de docker terem ips diferentes
+    public static String ip = "" ;
 
     public static void main(String[] args) throws IOException {
+        if(ip == ""){
+            Socket sToIp = new Socket();
+            sToIp.connect(new InetSocketAddress("google.com",80));
+            ip = sToIp.getLocalAddress().toString().substring(1);
+        }
         Server s = new Server();
         s.run();
         ZookeeperStart zp = new ZookeeperStart();
