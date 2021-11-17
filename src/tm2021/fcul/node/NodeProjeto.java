@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.URL;
 
 public class NodeProjeto {
 
@@ -19,9 +20,18 @@ public class NodeProjeto {
 
     public static void main(String[] args) throws IOException {
         if(ip == ""){
-            Socket sToIp = new Socket();
-            sToIp.connect(new InetSocketAddress("google.com",80));
-            ip = sToIp.getLocalAddress().toString().substring(1);
+            /*
+            URL whatismyip = new URL("http://checkip.amazonaws.com");
+            BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+            ip = in.readLine();
+            System.out.println("aqui");
+            System.out.println(ip);
+            */
+            if(ip == null || ip == ""){
+                Socket sToIp = new Socket();
+                sToIp.connect(new InetSocketAddress("google.com",80));
+                ip = sToIp.getLocalAddress().toString().substring(1);
+            }
         }
         Server s = new Server();
         s.run();
