@@ -27,7 +27,7 @@ public class NodeProjeto {
             System.out.println("aqui");
             System.out.println(ip);
             */
-            if(ip == null || ip == ""){
+            if(ip == ""){
                 Socket sToIp = new Socket();
                 sToIp.connect(new InetSocketAddress("google.com",80));
                 ip = sToIp.getLocalAddress().toString().substring(1);
