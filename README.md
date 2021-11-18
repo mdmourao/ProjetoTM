@@ -1,5 +1,3 @@
-# tm2021_Lab2_REST
+# Projeto TM
 
-Cria um servidor REST.
-Cria objeto user.
-Tem Java com pedidos, como deleteUser, addUser
+P2P projeto com dinheiro virtual!
