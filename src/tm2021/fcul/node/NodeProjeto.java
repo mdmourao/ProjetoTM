@@ -74,12 +74,16 @@ public class NodeProjeto {
                     uidClient = zookeeperSearch.findIpFromId(uidClient);
                     Client c = new Client(uidClient,Integer.parseInt(amountTransfer));
                     c.run();
+                    break;
                 case "2":
                     System.out.println(nodeResource.getAmount(id));
+                    break;
                 case "3":
                     zookeeperSearch.searchNodes();
+                    break;
                 case "4":
                     System.out.println(zookeeperSearch.findIpFromId(id));
+                    break;
             }
         }
 
