@@ -1,5 +1,6 @@
 package tm2021.fcul.node.zookeper;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.apache.zookeeper.CreateMode;
@@ -31,7 +32,7 @@ public class ZookeeperProcessor implements Watcher {
 
     public String write( String path, String value, CreateMode mode) {
         try {
-            return zk.create(path, value.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, mode);
+            return zk.create(path, Base64.getEncoder().encode(value.getBytes()), ZooDefs.Ids.OPEN_ACL_UNSAFE, mode);
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
             return null;
@@ -50,6 +51,15 @@ public class ZookeeperProcessor implements Watcher {
     public List<String> getChildren( String path) {
         try {
             return zk.getChildren(path, false);
+        } catch (KeeperException | InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getValue(String path){
+        try {
+            return new String (Base64.getDecoder().decode(zk.getData(path, false, null)));
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
             return null;

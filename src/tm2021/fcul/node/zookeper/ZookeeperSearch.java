@@ -22,4 +22,30 @@ public class ZookeeperSearch{
         }
 
     }
+    public int nodesCount(){
+        final ZookeeperProcessor zk;
+        try {
+            zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
+            List<String> lst = zk.getChildren( PATH);
+            return lst.size();
+        } catch (Exception e) {
+
+        }
+        return 0;
+    }
+
+    public String findIpFromId(String id){
+        final ZookeeperProcessor zk;
+        try {
+            zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
+            List<String> lst = zk.getChildren( PATH);
+            for(String i: lst){
+                if(i.equals(id)){
+                    return zk.getValue(PATH + "/" + id);
+                }
+            }
+        } catch (Exception e) {
+        }
+        return "";
+    }
 }

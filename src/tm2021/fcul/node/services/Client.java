@@ -23,12 +23,10 @@ public class Client implements Runnable {
     public void run() {
         ClientConfig config = new ClientConfig();
         jakarta.ws.rs.client.Client client = ClientBuilder.newClient(config);
-
         String url = "http://" + idClient + ":8081" + "/rest";
         WebTarget target = client.target(url).path(RestNode.PATH);
 
         Node n = new Node(idClient, 0);
-
 
         Response r = target.path(idClient).queryParam("amount", amount).request()
                 .accept(MediaType.APPLICATION_JSON)
