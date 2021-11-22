@@ -5,10 +5,10 @@ import org.apache.zookeeper.Watcher;
 
 import java.util.List;
 
-public class ZookeeperSearch implements  Runnable{
+public class ZookeeperSearch{
     String PATH = "/node";
-    @Override
-    public void run() {
+
+    public void searchNodes() {
         final ZookeeperProcessor zk;
         try {
             zk = new ZookeeperProcessor( ZookeeperProcessor.ip);

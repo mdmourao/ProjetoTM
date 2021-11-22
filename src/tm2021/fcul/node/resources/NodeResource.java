@@ -1,5 +1,7 @@
 package tm2021.fcul.node.resources;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import jakarta.inject.Singleton;
@@ -10,7 +12,7 @@ import tm2021.fcul.node.NodeProjeto;
 @Singleton
 public class NodeResource implements RestNode {
 
-   static public Node n = new Node(NodeProjeto.ip,0);
+   static public Map<String,Node> listNodes = new HashMap<>();
 
 	private static Logger Log = Logger.getLogger(NodeResource.class.getName());
 	
@@ -21,7 +23,16 @@ public class NodeResource implements RestNode {
 	@Override
 	public int updateAmount(String nodeId, int amount, Node node) {
 		Log.info("updateAmount : nodeID: = " + nodeId + "; amount = " + amount + " ; node = " + node);
-		n.setAmount(amount);
+		Node n = listNodes.get(nodeId);
+		if(n==null){
+			n = new Node(nodeId, 0);
+			listNodes.put(nodeId, n);
+		}
+		n.setAmount(n.getAmount() + amount);
 		return amount;
+	}
+
+	public int getAmount(int id){
+		return listNodes.get(id).getAmount();
 	}
 }

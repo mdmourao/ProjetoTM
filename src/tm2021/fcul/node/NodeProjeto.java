@@ -17,6 +17,16 @@ public class NodeProjeto {
     //Se mantiverem vazio ele vai usar o ip default para a rede
     // Isto é importante para as imagens de docker terem ips diferentes
     public static String ip = "" ;
+public static int id;
+public static NodeResource nodeResource = new NodeResource();
+public static ZookeeperSearch zookeeperSearch = new ZookeeperSearch();
+
+/*
+public int initNode(){
+        zookeeperSearch.
+    }
+
+ */
 
     public static void main(String[] args) throws IOException {
         if(ip == ""){
@@ -33,6 +43,7 @@ public class NodeProjeto {
                 ip = sToIp.getLocalAddress().toString().substring(1);
             }
         }
+        id = Math.abs(NodeProjeto.ip.hashCode());
         Server s = new Server();
         s.run();
         ZookeeperStart zp = new ZookeeperStart();
@@ -54,10 +65,9 @@ public class NodeProjeto {
                     Client c = new Client(uidClient,Integer.parseInt(amountTransfer));
                     c.run();
                 case "2":
-                    System.out.println( NodeResource.n.getAmount());
+                    System.out.println(nodeResource.getAmount(id));
                 case "3":
-                    ZookeeperSearch zookeeperSearch = new ZookeeperSearch();
-                    zookeeperSearch.run();
+                    zookeeperSearch.searchNodes();
             }
         }
 

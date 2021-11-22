@@ -14,7 +14,7 @@ public class ZookeeperStart implements Runnable {
         try {
 
             ZookeeperProcessor zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
-            zk.write(PATH, CreateMode.PERSISTENT);
+            //zk.write(PATH, CreateMode.PERSISTENT);
 
             int pathHash = Math.abs(NodeProjeto.ip.hashCode());
             System.out.println(pathHash);
