@@ -41,10 +41,10 @@ public interface RestNode {
 	 *         409 otherwise
 	 */
 	@PUT
-	@Path("/retrans/{idTrans}")
+	@Path("/retrans")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	int informNodes(@PathParam("idTrans") String idTrans, Retransmition retran);
+	int informNodes( Retransmition retran);
 
 
 

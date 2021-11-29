@@ -34,10 +34,10 @@ public class NodeResource implements RestNode {
 	}
 
 	@Override
-	public int informNodes(String idTrans, Retransmition retran) {
-		Log.info("oi");
-		return 12;
+	public int informNodes(Retransmition retran) {
+		return 0;
 	}
+
 
 	public Node getNode(String id){
 		return listNodes.get(id);
