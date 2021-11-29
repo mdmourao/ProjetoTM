@@ -32,6 +32,17 @@ public class NodeResource implements RestNode {
 		return amount;
 	}
 
+	@Override
+	public int informNodes(String idTrans, String nodeId, int amount, int numberRetrans, Node node) {
+		return 0;
+	}
+
+	public Node getNode(String id){
+		return listNodes.get(id);
+	}
+
+
+
 	public int getAmount(String id){
 		return listNodes.get(id).getAmount();
 	}

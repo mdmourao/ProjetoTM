@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.api.service.RestNode;
+import tm2021.fcul.node.NodeProjeto;
 
 public class Client implements Runnable {
 
@@ -26,9 +27,32 @@ public class Client implements Runnable {
         String url = "http://" + idClient + ":8081" + "/rest";
         WebTarget target = client.target(url).path(RestNode.PATH);
 
-        Node n = new Node(idClient, 0);
+        Node n = NodeProjeto.nodeResource.getNode(idClient);
 
         Response r = target.path(idClient).queryParam("amount", amount).request()
+                .accept(MediaType.APPLICATION_JSON)
+                .put(Entity.entity(n, MediaType.APPLICATION_JSON));
+        if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
+            System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
+            sendInfo("273848bhfynjy", n.getAmount(),n.getNodeId());
+        }else{
+            System.out.println("Error, HTTP error status: " + r.getStatus());
+        }
+
+    }
+
+    public void sendInfo(String idTrans, int amount, String idNode){
+        ClientConfig config = new ClientConfig();
+        jakarta.ws.rs.client.Client client = ClientBuilder.newClient(config);
+        String url = "http://" + idClient + ":8081" + "/rest";
+        WebTarget target = client.target(url).path(RestNode.PATH);
+
+        Node n = NodeProjeto.nodeResource.getNode(idClient);
+
+        Response r = target.path(idTrans)
+                .queryParam("amount", amount)
+                .queryParam("nodeId", idNode)
+                .queryParam("numberRetrans", 5).request()
                 .accept(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(n, MediaType.APPLICATION_JSON));
         if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity())
