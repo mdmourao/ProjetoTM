@@ -38,23 +38,17 @@ public interface RestNode {
 	 * Modifies the information of a user. Values of null in any field of the user will be
 	 * considered as if the the fields is not to be modified (the name cannot be modified).
 	 * @param idTrans the id of the transfer
-	 * @param nodeId the name of the user
-	 * @param amount password of the user
-	 * @param numberRetrans the number of retransmitions
-	 * @param node Updated information
+	 * @param retran Updated information
 	 * @return 200 the updated user object, if the name exists and password matches the
 	 *         existing password
 	 *         403 if the password is incorrect or the user does not exist
 	 *         409 otherwise
 	 */
 	@PUT
-	@Path("/{idTrans}")
+	//@Path("/{idTrans}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	int informNodes(@PathParam("idTrans") String idTrans,
-					@QueryParam("nodeId") String nodeId,
-					@QueryParam("amount") int amount,
-					@QueryParam("numberRetrans") int numberRetrans, Node node);
+	int informNodes(@PathParam("idTrans") String idTrans, Retransmition retran);
 
 
 

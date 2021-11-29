@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import tm2021.fcul.api.Node;
+import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.api.service.RestNode;
 import tm2021.fcul.node.NodeProjeto;
 
@@ -47,14 +48,12 @@ public class Client implements Runnable {
         String url = "http://" + idClient + ":8081" + "/rest";
         WebTarget target = client.target(url).path(RestNode.PATH);
 
-        Node n = NodeProjeto.nodeResource.getNode(idClient);
+        Retransmition retrans = new Retransmition(idTrans, idNode, amount,5);
 
         Response r = target.path(idTrans)
-                .queryParam("amount", amount)
-                .queryParam("nodeId", idNode)
-                .queryParam("numberRetrans", 5).request()
+                .request()
                 .accept(MediaType.APPLICATION_JSON)
-                .put(Entity.entity(n, MediaType.APPLICATION_JSON));
+                .put(Entity.entity(retrans, MediaType.APPLICATION_JSON));
         if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity())
             System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
         else

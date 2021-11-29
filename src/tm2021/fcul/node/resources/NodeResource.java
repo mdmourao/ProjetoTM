@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import jakarta.inject.Singleton;
 import tm2021.fcul.api.Node;
+import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.api.service.RestNode;
 import tm2021.fcul.node.NodeProjeto;
 
@@ -33,7 +34,7 @@ public class NodeResource implements RestNode {
 	}
 
 	@Override
-	public int informNodes(String idTrans, String nodeId, int amount, int numberRetrans, Node node) {
+	public int informNodes(String idTrans, Retransmition retran) {
 		return 0;
 	}
 
