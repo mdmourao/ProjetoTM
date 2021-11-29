@@ -50,7 +50,7 @@ public class Client implements Runnable {
         ClientConfig config = new ClientConfig();
         jakarta.ws.rs.client.Client client = ClientBuilder.newClient(config);
         String url = "http://" + idClient + ":8081" + "/rest";
-        WebTarget target = client.target(url).path(RestNode.PATH);
+        WebTarget target = client.target(url).path(RestNode.PATH + "/retrans");
 
         Retransmition retrans = new Retransmition(idTrans, idNode, amount,5);
 
