@@ -30,6 +30,10 @@ public class Client implements Runnable {
 
         Node n = NodeProjeto.nodeResource.getNode(idClient);
 
+        if(n==null){
+            n = new Node(idClient, 0);
+        }
+
         Response r = target.path(idClient).queryParam("amount", amount).request()
                 .accept(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(n, MediaType.APPLICATION_JSON));
