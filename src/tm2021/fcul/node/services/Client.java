@@ -34,6 +34,10 @@ public class Client implements Runnable {
             n = new Node(idClient, 0);
         }
 
+
+        System.out.println(url);
+        System.out.println(target.getUri());
+
         Response r = target.path(idClient).queryParam("amount", amount).request()
                 .accept(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(n, MediaType.APPLICATION_JSON));
@@ -50,17 +54,21 @@ public class Client implements Runnable {
         ClientConfig config = new ClientConfig();
         jakarta.ws.rs.client.Client client = ClientBuilder.newClient(config);
         String url = "http://" + idClient + ":8081" + "/rest";
-        WebTarget target = client.target(url).path(RestNode.PATH + "/retrans");
+        WebTarget target = client.target(url).path(RestNode.PATH + "/retrans" + "/" + idTrans);
+
+        System.out.println(url);
+        System.out.println(target.getUri());
 
         Retransmition retrans = new Retransmition(idTrans, idNode, amount,5);
-
-        Response r = target.path(idTrans)
-                .request()
+        System.out.println("INFOS::");
+        System.out.println(retrans);
+        Response r = target.request()
                 .accept(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(retrans, MediaType.APPLICATION_JSON));
         if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity())
             System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
         else
+            System.out.println();
             System.out.println("Error, HTTP error status: " + r.getStatus());
     }
 }

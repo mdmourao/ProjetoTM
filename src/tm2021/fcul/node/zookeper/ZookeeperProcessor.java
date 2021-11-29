@@ -25,7 +25,7 @@ public class ZookeeperProcessor implements Watcher {
         try {
             return zk.create(path, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, mode);
         } catch (KeeperException | InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
@@ -34,7 +34,7 @@ public class ZookeeperProcessor implements Watcher {
         try {
             return zk.create(path, Base64.getEncoder().encode(value.getBytes()), ZooDefs.Ids.OPEN_ACL_UNSAFE, mode);
         } catch (KeeperException | InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
@@ -43,7 +43,7 @@ public class ZookeeperProcessor implements Watcher {
         try {
             return zk.getChildren(path, watch);
         } catch (KeeperException | InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
@@ -52,7 +52,7 @@ public class ZookeeperProcessor implements Watcher {
         try {
             return zk.getChildren(path, false);
         } catch (KeeperException | InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }

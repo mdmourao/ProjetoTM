@@ -37,10 +37,7 @@ public interface RestNode {
 	/**
 	 * Modifies the information of a user. Values of null in any field of the user will be
 	 * considered as if the the fields is not to be modified (the name cannot be modified).
-	 * @param retran Updated information
-	 * @return 200 the updated user object, if the name exists and password matches the
-	 *         existing password
-	 *         403 if the password is incorrect or the user does not exist
+	 * @return 200 retrans
 	 *         409 otherwise
 	 */
 	@PUT
