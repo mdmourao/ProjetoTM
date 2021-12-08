@@ -38,25 +38,29 @@ public class GossipClient implements Runnable {
         NodeProjeto.lg.writetoLogFile( "SIZE IPs " + listIPS.size());
 
         Random random = new Random();
-        int randomIP = random.nextInt(listIPS.size());
-        NodeProjeto.lg.writetoLogFile("DEBUG: 1 " + listIPS.get(randomIP) );
-        sendRequest(listIPS.get(randomIP));
 
-        randomIP = random.nextInt(listIPS.size());
-        NodeProjeto.lg.writetoLogFile("DEBUG: 2 " + listIPS.get(randomIP) );
-        sendRequest(listIPS.get(randomIP));
+        if(listIPS.size() > 1){
+            int randomIP = random.nextInt(listIPS.size());
+            NodeProjeto.lg.writetoLogFile("DEBUG: 1 " + listIPS.get(randomIP) );
+            sendRequest(listIPS.get(randomIP));
 
-        randomIP = random.nextInt(listIPS.size());
-        NodeProjeto.lg.writetoLogFile("DEBUG: 3 " + listIPS.get(randomIP) );
-        sendRequest(listIPS.get(randomIP));
+            randomIP = random.nextInt(listIPS.size());
+            NodeProjeto.lg.writetoLogFile("DEBUG: 2 " + listIPS.get(randomIP) );
+            sendRequest(listIPS.get(randomIP));
 
-        randomIP = random.nextInt(listIPS.size());
-        NodeProjeto.lg.writetoLogFile("DEBUG: 4 " + listIPS.get(randomIP) );
-        sendRequest(listIPS.get(randomIP));
+            randomIP = random.nextInt(listIPS.size());
+            NodeProjeto.lg.writetoLogFile("DEBUG: 3 " + listIPS.get(randomIP) );
+            sendRequest(listIPS.get(randomIP));
 
-        randomIP = random.nextInt(listIPS.size());
-        NodeProjeto.lg.writetoLogFile( "DEBUG: 5 " + listIPS.get(randomIP));
-        sendRequest(listIPS.get(randomIP));
+            randomIP = random.nextInt(listIPS.size());
+            NodeProjeto.lg.writetoLogFile("DEBUG: 4 " + listIPS.get(randomIP) );
+            sendRequest(listIPS.get(randomIP));
+
+            randomIP = random.nextInt(listIPS.size());
+            NodeProjeto.lg.writetoLogFile( "DEBUG: 5 " + listIPS.get(randomIP));
+            sendRequest(listIPS.get(randomIP));
+        }
+
 
 
     }

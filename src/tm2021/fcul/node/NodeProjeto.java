@@ -60,7 +60,7 @@ public class NodeProjeto {
         }
         id = Integer.toString(Math.abs(NodeProjeto.ip.hashCode()));
 
-
+        initNode();
 
         Server s = new Server();
         s.run();
@@ -71,7 +71,7 @@ public class NodeProjeto {
         GossipClient gc = new GossipClient(id,amount,numberRetrans);
         gc.run();
 
-        initNode();
+
 
         System.out.println("Bem-Vindo");
         while(true){
