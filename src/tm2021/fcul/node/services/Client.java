@@ -25,8 +25,8 @@ public class Client implements Runnable {
     public void run() {
         ClientConfig config = new ClientConfig();
         jakarta.ws.rs.client.Client client = ClientBuilder.newClient(config);
-        String url = "http://" + idClient + ":8081" + "/rest";
-        WebTarget target = client.target(url).path(RestNode.PATH);
+        String url = "http://" + idClient + ":8081" + "/rest/nodes/";
+        WebTarget target = client.target(url);
 
         Node n = NodeProjeto.nodeResource.getNode(idClient);
 
