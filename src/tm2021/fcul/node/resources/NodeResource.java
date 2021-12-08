@@ -24,6 +24,7 @@ public class NodeResource implements RestNode {
 	@Override
 	public int updateAmount(String nodeId, int amount, Node node) {
 		Log.info("updateAmount : nodeID: = " + nodeId + "; amount = " + amount + " ; node = " + node);
+		nodeId = Integer.toString(Math.abs(nodeId.hashCode()));
 		Node n = listNodes.get(nodeId);
 		if(n==null){
 			n = new Node(nodeId, 0);

@@ -43,7 +43,7 @@ public class Client implements Runnable {
                 .put(Entity.entity(n, MediaType.APPLICATION_JSON));
         if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
             System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
-            sendInfo("273848bhfynjy", n.getAmount(),n.getNodeId());
+            //sendInfo("273848bhfynjy", n.getAmount(),n.getNodeId());
         }else{
             System.out.println("Error, HTTP error status: " + r.getStatus());
         }
