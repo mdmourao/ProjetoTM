@@ -70,7 +70,7 @@ public class GossipClient implements Runnable {
 
 
         if (r2.getStatus() == Response.Status.OK.getStatusCode() && r2.hasEntity()) {
-            System.out.println("RETRANS " + id + "Numero retrans " + numRetrans);
+            System.out.println("RETRANS " + idRetrans + " Numero retrans " + numRetrans);
         } else {
             System.out.println("Error RETRANS, HTTP error status: " + r2.getStatus());
         }
