@@ -43,7 +43,18 @@ public class Client implements Runnable {
                 .put(Entity.entity(n, MediaType.APPLICATION_JSON));
         if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
             System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
-            sendInfo("273848bhfynjy", n.getAmount(),n.getNodeId());
+           // sendInfo("273848bhfynjy", n.getAmount(),n.getNodeId());
+
+            String url2 = "http://" + idClient + ":8081" + "/rest/nodes/";
+            WebTarget target2 = client.target(url2);
+            Retransmition retrans = new Retransmition("273848bhfynjy",  n.getNodeId(),5,5);
+            Response r2 = target2.request().accept(MediaType.APPLICATION_JSON).get();
+            if( r2.getStatus() == Response.Status.OK.getStatusCode() && r2.hasEntity()){
+                System.out.println("OK!!");
+            }else{
+                System.out.println("ErrorR2, HTTP error status: " + r2.getStatus());
+            }
+
         }else{
             System.out.println("Error, HTTP error status: " + r.getStatus());
         }
@@ -53,8 +64,8 @@ public class Client implements Runnable {
     public void sendInfo(String idTrans, int amount, String idNode){
         ClientConfig config = new ClientConfig();
         jakarta.ws.rs.client.Client client = ClientBuilder.newClient(config);
-        String url = "http://" + idClient + ":8081" + "/rest";
-        WebTarget target = client.target(url).path(RestNode.PATH);
+        String url = "http://" + idClient + ":8081" + "/rest/nodes";
+        WebTarget target = client.target(url);
 
         System.out.println(url);
         System.out.println(target.getUri());
@@ -62,6 +73,8 @@ public class Client implements Runnable {
         Retransmition retrans = new Retransmition(idTrans, idNode, amount,5);
         System.out.println("INFOS::");
         System.out.println(retrans);
+        System.out.println(url);
+
         Response r = target.request()
                 .accept(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(retrans, MediaType.APPLICATION_JSON));
