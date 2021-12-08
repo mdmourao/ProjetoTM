@@ -75,11 +75,7 @@ public class NodeProjeto {
         th3.start();
 
         initNode();
-        menu();
 
-    }
-
-    public static void menu(){
         System.out.println("Bem-Vindo");
         while(true){
             System.out.println("Opção 1 - Transferir Dinheiro");
@@ -127,5 +123,12 @@ public class NodeProjeto {
                     break;
             }
         }
+
+
+
+    }
+
+    public static void menu(){
+
     }
 }
