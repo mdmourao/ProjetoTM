@@ -37,6 +37,7 @@ public class NodeResource implements RestNode {
 	@Override
 	public int sendRetrans( Retransmition retr) {
 		System.out.println(retr.getNodeId());
+		System.out.println("ola");
 		return 7;
 	}
 
