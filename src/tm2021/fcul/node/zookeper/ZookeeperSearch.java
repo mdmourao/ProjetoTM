@@ -29,7 +29,11 @@ public class ZookeeperSearch{
         try {
             zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
             List<String> lst = zk.getChildren( PATH);
-            return lst;
+            List<String> listIPs = new ArrayList<>();
+            for (String i : lst){
+                listIPs.add(findIpFromId(i));
+            }
+            return listIPs;
         } catch (Exception e) {
 
         }
