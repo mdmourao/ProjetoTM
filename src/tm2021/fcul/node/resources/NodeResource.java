@@ -33,10 +33,6 @@ public class NodeResource implements RestNode {
 		return amount;
 	}
 
-	@Override
-	public int informNodes(Retransmition retran) {
-		return 0;
-	}
 
 
 	public Node getNode(String id){

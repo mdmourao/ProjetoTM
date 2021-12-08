@@ -15,7 +15,6 @@ public interface RestNode {
 	static final String PATH="/nodes";
 
 
-	
 	/**
 	 * Modifies the information of a user. Values of null in any field of the user will be 
 	 * considered as if the the fields is not to be modified (the name cannot be modified).
@@ -32,19 +31,6 @@ public interface RestNode {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	int updateAmount(@PathParam("nodeId") String userId, @QueryParam("amount") int amount, Node node);
-
-
-	/**
-	 * Modifies the information of a user. Values of null in any field of the user will be
-	 * considered as if the the fields is not to be modified (the name cannot be modified).
-	 * @return 200 retrans
-	 *         409 otherwise
-	 */
-	@PUT
-	@Path("/retrans")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	int informNodes( Retransmition retran);
 
 
 
