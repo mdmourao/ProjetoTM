@@ -64,7 +64,7 @@ public class NodeProjeto {
         ZookeeperStart zp = new ZookeeperStart();
         zp.run();
         initNode();
-        GossipClient gc = new GossipClient(id,amount,5);
+        GossipClient gc = new GossipClient(id,amount,2);
         gc.run();
         System.out.println("Bem-Vindo");
         while(true){
