@@ -7,6 +7,17 @@ public class Retransmition {
     private int amount;
     private int numberRetrans;
 
+    public Retransmition() {
+
+    }
+
+    public Retransmition(String idRetrans, String nodeId, int amount, int numberRetrans) {
+        this.idRetrans = idRetrans;
+        this.nodeId = nodeId;
+        this.amount = amount;
+        this.numberRetrans = numberRetrans;
+    }
+
     public String getIdRetrans() {
         return idRetrans;
     }
@@ -39,12 +50,6 @@ public class Retransmition {
         this.numberRetrans = numberRetrans;
     }
 
-    public Retransmition(String idRetrans, String nodeId, int amount, int numberRetrans) {
-        this.idRetrans = idRetrans;
-        this.nodeId = nodeId;
-        this.amount = amount;
-        this.numberRetrans = numberRetrans;
-    }
 
     @Override
     public String toString() {
@@ -54,5 +59,17 @@ public class Retransmition {
                 ", amount=" + amount +
                 ", numberRetrans=" + numberRetrans +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Retransmition other = (Retransmition) obj;
+        return idRetrans.equals(other.idRetrans);
     }
 }
