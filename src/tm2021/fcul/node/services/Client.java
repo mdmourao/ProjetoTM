@@ -47,8 +47,10 @@ public class Client implements Runnable {
 
             String url2 = "http://" + idClient + ":8081" + "/rest/retrans/";
             WebTarget target2 = client.target(url2);
-            Retransmition retrans = new Retransmition("273848bhfynjy",  n.getNodeId(),5,5);
-            Response r2 = target2.request().accept(MediaType.APPLICATION_JSON).put(Entity.entity(retrans, MediaType.APPLICATION_JSON));
+
+            //Retransmition retrans = new Retransmition("273848bhfynjy",  n.getNodeId(),5,5);
+            Node ntest = new Node("1222",12);
+            Response r2 = target2.request().accept(MediaType.APPLICATION_JSON).put(Entity.entity(ntest, MediaType.APPLICATION_JSON));
 
 
 

@@ -30,7 +30,7 @@ public interface RestNode {
 	int updateAmount(@PathParam("nodeId") String userId, @QueryParam("amount") int amount, Node node);
 
 	/**
-	 * @param ret retrans
+	 * @param node retrans
 	 * @return 200 OK
 	 *         existing password
 	 *         403 if ...
@@ -40,7 +40,7 @@ public interface RestNode {
 	@Path("/retrans")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	int sendRetrans(Retransmition ret);
+	int sendRetrans(Node node);
 
 
 }
