@@ -1,13 +1,16 @@
 package tm2021.fcul.node.resources;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import jakarta.inject.Singleton;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.api.service.RestNode;
+import tm2021.fcul.node.NodeProjeto;
 import tm2021.fcul.node.services.GossipClient;
 
 @Singleton
@@ -26,7 +29,12 @@ public class NodeResource implements RestNode {
 
 	@Override
 	public int updateAmount(String nodeId, int amount, Node node) {
-		Log.info("updateAmount : nodeID: = " + nodeId + "; amount = " + amount + " ; node = " + node);
+		NodeProjeto.lg.writetoLogFile( "updateAmount : nodeID: = " + nodeId + "; amount = " + amount + " ; node = " + node);
+		if(Objects.equals(nodeId, NodeProjeto.id)){
+			System.out.println("Dinheiro adicionado à sua conta\n");
+			System.out.println("DE: " + nodeId + "\n");
+			System.out.println("VALOR: " + amount + "\n");
+		}
 		nodeId = Integer.toString(Math.abs(nodeId.hashCode()));
 		Node n = listNodes.get(nodeId);
 		if(n==null){
@@ -35,6 +43,11 @@ public class NodeResource implements RestNode {
 		}
 		n.setAmount(n.getAmount() + amount);
 		listNodes.put(n.getNodeId(),n);
+		Date date = new Date();
+		long timeMilli = date.getTime();
+		String idRetrans = NodeProjeto.ip + timeMilli;
+		GossipClient gc = new GossipClient(idRetrans,n.getAmount(),NodeProjeto.numberRetrans);
+		gc.run();
 		return amount;
 	}
 

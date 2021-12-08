@@ -28,10 +28,10 @@ public class Server implements Runnable {
             String serverURI = String.format("http://%s:%s/rest", ip, PORT);
             JdkHttpServerFactory.createHttpServer(URI.create(serverURI), config);
 
-            System.out.println(String.format("%s Server ready @ %s\n", SERVICE, serverURI));
+            NodeProjeto.lg.writetoLogFile(String.format("%s Server ready @ %s\n", SERVICE, serverURI) );
 
         } catch (Exception e) {
-            e.printStackTrace();
+            NodeProjeto.lg.writetoLogFile( e.getLocalizedMessage());
         }
     }
 }

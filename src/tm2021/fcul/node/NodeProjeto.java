@@ -4,6 +4,7 @@ import tm2021.fcul.api.Node;
 import tm2021.fcul.node.resources.NodeResource;
 import tm2021.fcul.node.services.Client;
 import tm2021.fcul.node.services.GossipClient;
+import tm2021.fcul.node.services.LogFile;
 import tm2021.fcul.node.services.Server;
 import tm2021.fcul.node.zookeper.*;
 
@@ -21,8 +22,10 @@ public class NodeProjeto {
     public static String ip = "" ;
     public static String id;
     public static int amount = 0;
+    public static int numberRetrans = 2;
     public static NodeResource nodeResource = new NodeResource();
     public static ZookeeperSearch zookeeperSearch = new ZookeeperSearch();
+    public static LogFile lg;
 
 
     public static void initNode(){
@@ -39,6 +42,8 @@ public class NodeProjeto {
 
 
     public static void main(String[] args) throws IOException {
+        lg = new LogFile();
+        lg.writetoLogFile("START Programa");
         if(ip == ""){
             /*
             URL whatismyip = new URL("http://checkip.amazonaws.com");
@@ -56,31 +61,55 @@ public class NodeProjeto {
         id = Integer.toString(Math.abs(NodeProjeto.ip.hashCode()));
 
 
+
         Server s = new Server();
-        s.run();
-
-
+        Thread th1 = new Thread(s);
+        th1.start();
 
         ZookeeperStart zp = new ZookeeperStart();
-        zp.run();
+        Thread th2 = new Thread(zp);
+        th2.start();
+
+        GossipClient gc = new GossipClient(id,amount,numberRetrans);
+        Thread th3 = new Thread(gc);
+        th3.start();
+
         initNode();
-        GossipClient gc = new GossipClient(id,amount,2);
-        gc.run();
+        menu();
+
+    }
+
+    public static void menu(){
         System.out.println("Bem-Vindo");
         while(true){
             System.out.println("Opção 1 - Transferir Dinheiro");
             System.out.println("Opção 2 - Consultar Saldo");
             System.out.println("Opção 3 - Descobrir Nodes");
+            System.out.println("Opção 4 - ");
+            System.out.println("Opção 5 - Aceders aos Logs");
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            String opcao = reader.readLine();
+            String opcao = null;
+            try {
+                opcao = reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             switch (opcao){
                 case "1":
-                    //TODO
                     System.out.println("UID do cliente:");
-                    String uidClient = reader.readLine();
+                    String uidClient = null;
+                    try {
+                        uidClient = reader.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println("Dinhero a transferir:");
-                    String amountTransfer = reader.readLine();
-                    uidClient = zookeeperSearch.findIpFromId(uidClient);
+                    String amountTransfer = null;
+                    try {
+                        amountTransfer = reader.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     Client c = new Client(uidClient,Integer.parseInt(amountTransfer));
                     c.run();
                     break;
@@ -93,8 +122,10 @@ public class NodeProjeto {
                 case "4":
                     System.out.println(zookeeperSearch.findIpFromId(id));
                     break;
+                case "5":
+                    lg.readFile();
+                    break;
             }
         }
-
     }
 }

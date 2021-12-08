@@ -1,11 +1,7 @@
 package tm2021.fcul.node.zookeper;
 
 import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
 import tm2021.fcul.node.NodeProjeto;
-
-import java.util.List;
 
 public class ZookeeperStart implements Runnable {
     String PATH = "/node";
@@ -23,11 +19,11 @@ public class ZookeeperStart implements Runnable {
             String value = NodeProjeto.ip;
             zk.write(PATH, value, CreateMode.EPHEMERAL);
 
-            System.out.println("ZOOKEPER INFO: " +  PATH + " PATH: "+ value);
+            NodeProjeto.lg.writetoLogFile("ZOOKEPER START INFO: " +  PATH + " PATH: "+ value);
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            NodeProjeto.lg.writetoLogFile( e.getLocalizedMessage());
         }
 
     }
