@@ -21,6 +21,7 @@ public class NodeProjeto {
     public static String ip = "" ;
     public static String id;
     public static int amount = 0;
+    public static int numRetrans = 2;
     public static NodeResource nodeResource = new NodeResource();
     public static ZookeeperSearch zookeeperSearch = new ZookeeperSearch();
 
@@ -64,7 +65,7 @@ public class NodeProjeto {
         ZookeeperStart zp = new ZookeeperStart();
         zp.run();
         initNode();
-        GossipClient gc = new GossipClient(id,amount,2);
+        GossipClient gc = new GossipClient(id,"",amount,numRetrans);
         gc.run();
         System.out.println("Bem-Vindo");
         while(true){

@@ -17,13 +17,15 @@ import java.util.Random;
 public class GossipClient implements Runnable {
 
     String id;
+    String idRetrans;
     int amount;
     int numRetrans;
 
-    public GossipClient(String id, int amount, int numRetrans) {
+    public GossipClient(String id, String idRetrans ,int amount, int numRetrans) {
         this.id = id;
         this.amount = amount;
         this.numRetrans = numRetrans;
+        this.idRetrans = idRetrans;
     }
 
     ClientConfig config = new ClientConfig();
@@ -34,36 +36,32 @@ public class GossipClient implements Runnable {
         System.out.println("DEBUG: comecei o gossip");
         List<String> listIPS = NodeProjeto.zookeeperSearch.getListIPs();
         System.out.println("SIZE IPS " + listIPS.size());
+
         if(listIPS.size() > 1){
-            Random random = new Random();
-            int randomIP = random.nextInt(listIPS.size());
-            System.out.println("DEBUG: 1 " + listIPS.get(randomIP));
-            sendRequest(listIPS.get(randomIP));
-            randomIP = random.nextInt(listIPS.size());
-            System.out.println("DEBUG: 2 " + listIPS.get(randomIP));
-            sendRequest(listIPS.get(randomIP));
-            randomIP = random.nextInt(listIPS.size());
-            System.out.println("DEBUG: 3 " + listIPS.get(randomIP));
-            sendRequest(listIPS.get(randomIP));
-            randomIP = random.nextInt(listIPS.size());
-            System.out.println("DEBUG: 4 " + listIPS.get(randomIP));
-            sendRequest(listIPS.get(randomIP));
-            randomIP = random.nextInt(listIPS.size());
-            System.out.println("DEBUG: 5 " + listIPS.get(randomIP));
-            sendRequest(listIPS.get(randomIP));
+
+            for(int i = 0; i < numRetrans; i ++){
+                Random random = new Random();
+                int randomIP = random.nextInt(listIPS.size());
+                System.out.println("DEBUG: 1 " + listIPS.get(randomIP));
+                sendRequest(listIPS.get(randomIP));
+            }
+
         }
+
+
 
 
 
     }
 
     public void sendRequest(String ipClient) {
-        System.out.println("DEBUG: comecei a enviar um pedido ");
         String url2 = "http://" + ipClient + ":8081" + "/rest/retrans/";
         WebTarget target2 = client.target(url2);
-        Date date = new Date();
-        long timeMilli = date.getTime();
-        String idRetrans = id + timeMilli;
+        if(idRetrans == ""){
+            Date date = new Date();
+            long timeMilli = date.getTime();
+            idRetrans = id + timeMilli;
+        }
         Retransmition retrans = new Retransmition(idRetrans, id, amount, numRetrans);
         Response r2 = target2.request().accept(MediaType.APPLICATION_JSON).put(Entity.entity(retrans, MediaType.APPLICATION_JSON));
 

@@ -40,13 +40,14 @@ public class NodeResource implements RestNode {
 
 	@Override
 	public int sendRetrans( Retransmition retr) {
+
 		Retransmition r = listRetrans.get(retr.getIdRetrans());
 		if(r == null){
 			Node n = new Node(retr.getNodeId(),retr.getAmount());
 			listNodes.put(n.getNodeId(),n);
 			int numR = retr.getNumberRetrans() - 1;
 			if(numR >= 0){
-				GossipClient gc = new GossipClient(retr.getNodeId(),retr.getAmount(),numR);
+				GossipClient gc = new GossipClient(retr.getNodeId(),retr.getIdRetrans(),retr.getAmount(),numR);
 				gc.run();
 			}
 			listRetrans.put(retr.getIdRetrans(),r);
