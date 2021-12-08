@@ -9,6 +9,7 @@ import org.glassfish.jersey.client.ClientConfig;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.node.NodeProjeto;
+import tm2021.fcul.node.resources.NodeResource;
 
 import java.util.Date;
 import java.util.List;
@@ -63,6 +64,7 @@ public class GossipClient implements Runnable {
             idRetrans = id + timeMilli;
         }
         Retransmition retrans = new Retransmition(idRetrans, id, amount, numRetrans);
+        NodeResource.listRetrans.put(retrans.getIdRetrans(),retrans);
         Response r2 = target2.request().accept(MediaType.APPLICATION_JSON).put(Entity.entity(retrans, MediaType.APPLICATION_JSON));
 
 
