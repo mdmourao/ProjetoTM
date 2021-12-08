@@ -45,7 +45,7 @@ public class Client implements Runnable {
             System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
            // sendInfo("273848bhfynjy", n.getAmount(),n.getNodeId());
 
-            String url2 = "http://" + idClient + ":8081" + "/rest/nodes/retrans/273848bhfynjy";
+            String url2 = "http://" + idClient + ":8081" + "/rest/retrans";
             WebTarget target2 = client.target(url2);
             Retransmition retrans = new Retransmition("273848bhfynjy",  n.getNodeId(),5,5);
             Response r2 = target2.request().accept(MediaType.APPLICATION_JSON).put(Entity.entity(retrans, MediaType.APPLICATION_JSON));

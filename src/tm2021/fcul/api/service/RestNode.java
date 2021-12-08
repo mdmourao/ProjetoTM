@@ -8,7 +8,8 @@ import tm2021.fcul.api.Retransmition;
 @Path(RestNode.PATH)
 public interface RestNode {
 
-	static final String PATH="/nodes";
+	static final String PATH="";
+
 
 
 	/**
@@ -23,7 +24,7 @@ public interface RestNode {
 	 *         409 otherwise
 	 */
 	@PUT
-	@Path("/{nodeId}")
+	@Path("/nodes/{nodeId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	int updateAmount(@PathParam("nodeId") String userId, @QueryParam("amount") int amount, Node node);
@@ -36,11 +37,10 @@ public interface RestNode {
 	 *         409 otherwise
 	 */
 	@PUT
-	@Path("/retrans/{idtrans}")
+	@Path("/retrans")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	int sendRetrans(@PathParam("idtrans") String transid,Retransmition ret);
-
+	int sendRetrans(Retransmition ret);
 
 
 }
