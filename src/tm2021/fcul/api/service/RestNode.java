@@ -35,10 +35,11 @@ public interface RestNode {
 	 *         403 if ...
 	 *         409 otherwise
 	 */
-	@GET
+	@PUT
+	@Path("/retrans/{idtrans}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	int sendRetrans(Retransmition ret);
+	int sendRetrans(@PathParam("idtrans") String transid,Retransmition ret);
 
 
 

@@ -34,6 +34,11 @@ public class NodeResource implements RestNode {
 		return amount;
 	}
 
+	@Override
+	public int sendRetrans(String transid, Retransmition ret) {
+		System.out.println(ret.getIdRetrans());
+		return 7;
+	}
 
 
 	public Node getNode(String id){
@@ -51,11 +56,7 @@ public class NodeResource implements RestNode {
 	}
 
 
-	@Override
-	public int sendRetrans( Retransmition retransmition) {
-		System.out.println(retransmition.getIdRetrans());
-		return -1;
-	}
+
 
 
 }
