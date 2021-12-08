@@ -48,7 +48,7 @@ public class Client implements Runnable {
             String url2 = "http://" + idClient + ":8081" + "/rest/nodes/";
             WebTarget target2 = client.target(url2);
             Retransmition retrans = new Retransmition("273848bhfynjy",  n.getNodeId(),5,5);
-            Response r2 = target2.request().accept(MediaType.APPLICATION_JSON).get();
+            Response r2 = target2.queryParam("ret", retrans).request().accept(MediaType.APPLICATION_JSON).get();
             if( r2.getStatus() == Response.Status.OK.getStatusCode() && r2.hasEntity()){
                 System.out.println("OK!!");
             }else{
