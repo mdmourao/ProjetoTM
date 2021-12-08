@@ -11,8 +11,6 @@ import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.api.service.RestNode;
 import tm2021.fcul.node.NodeProjeto;
 
-import java.util.Date;
-
 public class Client implements Runnable {
 
     String idClient;
@@ -28,8 +26,7 @@ public class Client implements Runnable {
 
     @Override
     public void run() {
-        String ip = NodeProjeto.zookeeperSearch.findIpFromId(idClient);
-        String url = "http://" + ip + ":8081" + "/rest/nodes/";
+        String url = "http://" + idClient + ":8081" + "/rest/nodes/";
         WebTarget target = client.target(url);
 
         Node n = NodeProjeto.nodeResource.getNode(idClient);
@@ -39,18 +36,35 @@ public class Client implements Runnable {
         }
 
 
+        System.out.println(url);
+        System.out.println(target.getUri());
+
         Response r = target.path(idClient).queryParam("amount", amount).request()
                 .accept(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(n, MediaType.APPLICATION_JSON));
         if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
-            //TODO
-            NodeProjeto.lg.writetoLogFile( "SUCESSO, enviei dinheiro para: " + r.readEntity(String.class));
-            System.out.println("SUCESSO, enviei dinheiro para: " + r.readEntity(String.class));
+            System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
+            sendInfo(n);
         }else{
-            NodeProjeto.lg.writetoLogFile( "Error, HTTP error status: " + r.getStatus());
+            System.out.println("Error, HTTP error status: " + r.getStatus());
         }
 
     }
 
+    public void sendInfo(Node n){
 
+        String url2 = "http://" + idClient + ":8081" + "/rest/retrans/";
+        WebTarget target2 = client.target(url2);
+
+        Retransmition retrans = new Retransmition("273848bhfynjy",  n.getNodeId(),5,5);
+        Response r2 = target2.request().accept(MediaType.APPLICATION_JSON).put(Entity.entity(retrans, MediaType.APPLICATION_JSON));
+
+
+
+        if( r2.getStatus() == Response.Status.OK.getStatusCode() && r2.hasEntity()){
+            System.out.println("OK!!");
+        }else{
+            System.out.println("ErrorR2, HTTP error status: " + r2.getStatus());
+        }
+    }
 }

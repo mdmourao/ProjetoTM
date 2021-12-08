@@ -31,33 +31,25 @@ public class GossipClient implements Runnable {
 
     @Override
     public void run() {
-
+        System.out.println("DEBUG: comecei o gossip");
         List<String> listIPS = NodeProjeto.zookeeperSearch.getListIPs();
-
-        NodeProjeto.lg.writetoLogFile( "DEBUG: comecei o gossip");
-        NodeProjeto.lg.writetoLogFile( "SIZE IPs " + listIPS.size());
-
-        Random random = new Random();
-
+        System.out.println("SIZE IPS " + listIPS.size());
         if(listIPS.size() > 1){
+            Random random = new Random();
             int randomIP = random.nextInt(listIPS.size());
-            NodeProjeto.lg.writetoLogFile("DEBUG: 1 " + listIPS.get(randomIP) );
+            System.out.println("DEBUG: 1 " + listIPS.get(randomIP));
             sendRequest(listIPS.get(randomIP));
-
             randomIP = random.nextInt(listIPS.size());
-            NodeProjeto.lg.writetoLogFile("DEBUG: 2 " + listIPS.get(randomIP) );
+            System.out.println("DEBUG: 2 " + listIPS.get(randomIP));
             sendRequest(listIPS.get(randomIP));
-
             randomIP = random.nextInt(listIPS.size());
-            NodeProjeto.lg.writetoLogFile("DEBUG: 3 " + listIPS.get(randomIP) );
+            System.out.println("DEBUG: 3 " + listIPS.get(randomIP));
             sendRequest(listIPS.get(randomIP));
-
             randomIP = random.nextInt(listIPS.size());
-            NodeProjeto.lg.writetoLogFile("DEBUG: 4 " + listIPS.get(randomIP) );
+            System.out.println("DEBUG: 4 " + listIPS.get(randomIP));
             sendRequest(listIPS.get(randomIP));
-
             randomIP = random.nextInt(listIPS.size());
-            NodeProjeto.lg.writetoLogFile( "DEBUG: 5 " + listIPS.get(randomIP));
+            System.out.println("DEBUG: 5 " + listIPS.get(randomIP));
             sendRequest(listIPS.get(randomIP));
         }
 
@@ -66,7 +58,7 @@ public class GossipClient implements Runnable {
     }
 
     public void sendRequest(String ipClient) {
-        NodeProjeto.lg.writetoLogFile( "DEBUG: comecei um pedido");
+        System.out.println("DEBUG: comecei a enviar um pedido ");
         String url2 = "http://" + ipClient + ":8081" + "/rest/retrans/";
         WebTarget target2 = client.target(url2);
         Date date = new Date();
@@ -77,9 +69,9 @@ public class GossipClient implements Runnable {
 
 
         if (r2.getStatus() == Response.Status.OK.getStatusCode() && r2.hasEntity()) {
-            NodeProjeto.lg.writetoLogFile( "RETRANS " + id + "Numero retrans " + numRetrans);
+            System.out.println("RETRANS " + id + "Numero retrans " + numRetrans);
         } else {
-            NodeProjeto.lg.writetoLogFile( "Error RETRANS, HTTP error status: " + r2.getStatus());
+            System.out.println("Error RETRANS, HTTP error status: " + r2.getStatus());
         }
 
     }

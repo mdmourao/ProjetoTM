@@ -2,9 +2,7 @@ package tm2021.fcul.node.zookeper;
 
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
-import tm2021.fcul.node.NodeProjeto;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +17,9 @@ public class ZookeeperSearch{
             for(String i : lst){
                 System.out.println(i);
             }
+            System.out.println(lst.size());
         } catch (Exception e) {
-            NodeProjeto.lg.writetoLogFile( e.getLocalizedMessage());
+
         }
 
     }
@@ -36,7 +35,7 @@ public class ZookeeperSearch{
             }
             return listIPs;
         } catch (Exception e) {
-            NodeProjeto.lg.writetoLogFile( e.getLocalizedMessage());
+
         }
         List<String> st = new ArrayList<>();
         return st;
@@ -49,7 +48,7 @@ public class ZookeeperSearch{
             List<String> lst = zk.getChildren( PATH);
             return lst.size();
         } catch (Exception e) {
-            NodeProjeto.lg.writetoLogFile( e.getLocalizedMessage());
+
         }
         return 0;
     }
@@ -65,7 +64,6 @@ public class ZookeeperSearch{
                 }
             }
         } catch (Exception e) {
-            NodeProjeto.lg.writetoLogFile( e.getLocalizedMessage());
         }
         return "";
     }
