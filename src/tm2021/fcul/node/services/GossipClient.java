@@ -62,6 +62,7 @@ public class GossipClient implements Runnable {
             Date date = new Date();
             long timeMilli = date.getTime();
             idRetrans = id + timeMilli;
+            System.out.println("eu criei uma retrans, com o seguinte id " + idRetrans);
         }
         Retransmition retrans = new Retransmition(idRetrans, id, amount, numRetrans);
         NodeResource.listRetrans.put(retrans.getIdRetrans(),retrans);
