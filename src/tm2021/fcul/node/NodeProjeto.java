@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.URL;
 import java.util.Random;
 
 public class NodeProjeto {
@@ -52,8 +51,13 @@ public class NodeProjeto {
             }
         }
         id = Integer.toString(Math.abs(NodeProjeto.ip.hashCode()));
+
+      
         Server s = new Server();
         s.run();
+
+
+
         ZookeeperStart zp = new ZookeeperStart();
         zp.run();
         initNode();

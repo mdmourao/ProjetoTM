@@ -8,7 +8,6 @@ import jakarta.inject.Singleton;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.api.service.RestNode;
-import tm2021.fcul.node.NodeProjeto;
 
 @Singleton
 public class NodeResource implements RestNode {
@@ -50,4 +49,18 @@ public class NodeResource implements RestNode {
 	public void addNode(Node n){
 		listNodes.put(n.getNodeId(),n);
 	}
+
+
+	@Override
+	public int sendRetrans( Retransmition retransmition) {
+		if(retransmition == null){
+			System.out.println("NULL");
+			return -1;
+		}else{
+			System.out.println(retransmition.getIdRetrans());
+			return 7;
+		}
+	}
+
+
 }

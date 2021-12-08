@@ -8,6 +8,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import tm2021.fcul.api.*;
+import tm2021.fcul.api.Retransmition;
 
 @Path(RestNode.PATH)
 public interface RestNode {
@@ -31,6 +32,18 @@ public interface RestNode {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	int updateAmount(@PathParam("nodeId") String userId, @QueryParam("amount") int amount, Node node);
+
+	/**
+	 * @param retransmition information
+	 * @return 200 OK
+	 *         existing password
+	 *         403 if ...
+	 *         409 otherwise
+	 */
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	int sendRetrans( Retransmition retransmition);
 
 
 

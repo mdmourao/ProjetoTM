@@ -43,7 +43,7 @@ public class Client implements Runnable {
                 .put(Entity.entity(n, MediaType.APPLICATION_JSON));
         if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
             System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
-            //sendInfo("273848bhfynjy", n.getAmount(),n.getNodeId());
+            sendInfo("273848bhfynjy", n.getAmount(),n.getNodeId());
         }else{
             System.out.println("Error, HTTP error status: " + r.getStatus());
         }
@@ -54,7 +54,7 @@ public class Client implements Runnable {
         ClientConfig config = new ClientConfig();
         jakarta.ws.rs.client.Client client = ClientBuilder.newClient(config);
         String url = "http://" + idClient + ":8081" + "/rest";
-        WebTarget target = client.target(url).path(RestNode.PATH + "/retrans" );
+        WebTarget target = client.target(url).path(RestNode.PATH);
 
         System.out.println(url);
         System.out.println(target.getUri());
