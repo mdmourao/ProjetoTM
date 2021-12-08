@@ -30,6 +30,7 @@ public class NodeResource implements RestNode {
 			listNodes.put(nodeId, n);
 		}
 		n.setAmount(n.getAmount() + amount);
+		listNodes.put(n.getNodeId(),n);
 		return amount;
 	}
 
