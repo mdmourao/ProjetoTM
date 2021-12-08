@@ -63,16 +63,13 @@ public class NodeProjeto {
 
 
         Server s = new Server();
-        Thread th1 = new Thread(s);
-        th1.start();
+        s.run();
 
         ZookeeperStart zp = new ZookeeperStart();
-        Thread th2 = new Thread(zp);
-        th2.start();
+        zp.run();
 
         GossipClient gc = new GossipClient(id,amount,numberRetrans);
-        Thread th3 = new Thread(gc);
-        th3.start();
+        gc.run();
 
         initNode();
 
