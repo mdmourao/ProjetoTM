@@ -3,6 +3,7 @@ package tm2021.fcul.node.zookeper;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ZookeeperSearch{
@@ -22,6 +23,20 @@ public class ZookeeperSearch{
         }
 
     }
+
+    public List<String> getListIPs() {
+        final ZookeeperProcessor zk;
+        try {
+            zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
+            List<String> lst = zk.getChildren( PATH);
+            return lst;
+        } catch (Exception e) {
+
+        }
+        List<String> st = new ArrayList<>();
+        return st;
+    }
+
     public int nodesCount(){
         final ZookeeperProcessor zk;
         try {

@@ -8,11 +8,15 @@ import jakarta.inject.Singleton;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.api.service.RestNode;
+import tm2021.fcul.node.services.GossipClient;
 
 @Singleton
 public class NodeResource implements RestNode {
 
    static public Map<String,Node> listNodes = new HashMap<>();
+
+
+	static public Map<String,Retransmition> listRetrans = new HashMap<>();
 
 	private static Logger Log = Logger.getLogger(NodeResource.class.getName());
 	
@@ -36,9 +40,18 @@ public class NodeResource implements RestNode {
 
 	@Override
 	public int sendRetrans( Retransmition retr) {
-		System.out.println(retr.getNodeId());
-		System.out.println("ola");
-		return 7;
+		Retransmition r = listRetrans.get(retr.getIdRetrans());
+		if(r == null){
+			Node n = new Node(retr.getNodeId(),retr.getAmount());
+			listNodes.put(n.getNodeId(),n);
+			int numR = retr.getNumberRetrans() - 1;
+			if(numR >= 0){
+				GossipClient gc = new GossipClient(retr.getNodeId(),retr.getAmount(),numR);
+				gc.run();
+			}
+			listRetrans.put(retr.getIdRetrans(),r);
+		}
+		return 0;
 	}
 
 

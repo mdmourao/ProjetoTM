@@ -3,6 +3,7 @@ package tm2021.fcul.node;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.node.resources.NodeResource;
 import tm2021.fcul.node.services.Client;
+import tm2021.fcul.node.services.GossipClient;
 import tm2021.fcul.node.services.Server;
 import tm2021.fcul.node.zookeper.*;
 
@@ -19,6 +20,7 @@ public class NodeProjeto {
     // Isto é importante para as imagens de docker terem ips diferentes
     public static String ip = "" ;
     public static String id;
+    public static int amount = 0;
     public static NodeResource nodeResource = new NodeResource();
     public static ZookeeperSearch zookeeperSearch = new ZookeeperSearch();
 
@@ -27,6 +29,7 @@ public class NodeProjeto {
         int nodesCount = zookeeperSearch.nodesCount();
         Random random = new Random();
         int randomAmount = random.nextInt(100) + 1;
+        amount = randomAmount;
 
         Node n = new Node(id, randomAmount);
 
@@ -52,7 +55,7 @@ public class NodeProjeto {
         }
         id = Integer.toString(Math.abs(NodeProjeto.ip.hashCode()));
 
-      
+
         Server s = new Server();
         s.run();
 
@@ -61,6 +64,8 @@ public class NodeProjeto {
         ZookeeperStart zp = new ZookeeperStart();
         zp.run();
         initNode();
+        GossipClient gc = new GossipClient(id,amount,5);
+        gc.run();
         System.out.println("Bem-Vindo");
         while(true){
             System.out.println("Opção 1 - Transferir Dinheiro");
