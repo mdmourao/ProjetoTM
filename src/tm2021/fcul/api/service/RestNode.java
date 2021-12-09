@@ -13,18 +13,14 @@ public interface RestNode {
 
 	static final String PATH="";
 
-
-
 	/**
-	 * Modifies the information of a user. Values of null in any field of the user will be 
-	 * considered as if the the fields is not to be modified (the name cannot be modified).
-	 * @param nodeId the name of the user
-	 * @param amount password of the user
-	 * @param nodeFrom psss
-	 * @param node Updated information
-	 * @return 200 the updated user object, if the name exists and password matches the
-	 *         existing password 
-	 *         403 if the password is incorrect or the user does not exist 
+	 * Pedido para realizar updates de saldo
+	 * @param nodeId the nodeid
+	 * @param amount amount
+	 * @param nodeFrom id node from
+	 * @param node Node
+	 * @return 200 OK
+	 *         403 if incorrect
 	 *         409 otherwise
 	 */
 	@PUT
@@ -34,11 +30,9 @@ public interface RestNode {
 	int updateAmount(@PathParam("nodeId") String nodeId, @QueryParam("amount") int amount, @QueryParam("nodeFrom") String nodeFrom,Node node);
 
 	/**
-	 * Modifies the information of a user. Values of null in any field of the user will be
-	 * considered as if the the fields is not to be modified (the name cannot be modified).
-	 * @return 200 the updated user object, if the name exists and password matches the
-	 *         existing password
-	 *         403 if the password is incorrect or the user does not exist
+	 * Pedido obter saldo de outro node
+	 * @return 200 OK
+	 *         403 if incorrect
 	 *         409 otherwise
 	 */
 	@GET
@@ -51,7 +45,7 @@ public interface RestNode {
 	 * @param retr retrans
 	 * @return 200 OK
 	 *         existing password
-	 *         403 if ...
+	 *         403 if incorrect
 	 *         409 otherwise
 	 */
 	@PUT
@@ -61,11 +55,9 @@ public interface RestNode {
 	int sendRetrans(Retransmition retr);
 
 	/**
-	 * Modifies the information of a user. Values of null in any field of the user will be
-	 * considered as if the the fields is not to be modified (the name cannot be modified).
-	 * @return 200 the updated user object, if the name exists and password matches the
-	 *         existing password
-	 *         403 if the password is incorrect or the user does not exist
+	 * Obter transaçoes da rede
+	 * @return 200 OK
+	 *         403 if incorrect
 	 *         409 otherwise
 	 */
 	@GET

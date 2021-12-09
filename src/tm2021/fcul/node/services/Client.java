@@ -51,7 +51,7 @@ public class Client implements Runnable {
             if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity() ){
                 int amount = r.readEntity(int.class);
                 if(amount != -1){
-                    System.out.println("Recebeste o seguinte valor na tua conta: " + amount);
+                    System.out.println("Transferiu o seguinte valor da sua conta: " + amount);
                     Node neu = NodeProjeto.nodeResource.getNode(NodeProjeto.id);
                     neu.setAmount(neu.getAmount() - this.amount);
                     NodeProjeto.nodeResource.addNode(neu);

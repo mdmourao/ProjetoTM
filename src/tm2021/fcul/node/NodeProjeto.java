@@ -131,14 +131,18 @@ public class NodeProjeto {
                         System.out.println("O teu saldo disponivel é: " + realamount);
                     }else{
                         uidClient = zookeeperSearch.findIpFromId(uidClient);
-                        new Thread(new Client(uidClient,amount)).start();
+                        if(uidClient == "") {
+                            System.out.println("Este UID não se encontra disponivel. Tente mais tarde!");
+                        }else {
+                            new Thread(new Client(uidClient,amount)).start();
+                        }
                     }
                     break;
                 case "2":
                     System.out.println("UID do cliente:");
                     uidClient = reader.readLine();
                     if(nodeResource.getAmount(uidClient) != -1){
-                        System.out.println(nodeResource.getAmount(uidClient));
+                        System.out.println("O saldo desse cliente é: "+nodeResource.getAmount(uidClient));
                     }else{
                         new Thread(new ClientGetAmount(uidClient)).start();
                     }

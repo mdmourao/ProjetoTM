@@ -39,7 +39,7 @@ public class ClientGetAmount implements Runnable {
                     .get();
             if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
                 String actual = r.readEntity(String.class);
-                System.out.println(actual);
+                System.out.println("O saldo desse cliente é: "+actual);
 
             }else{
                 //System.out.println("Error, HTTP error status: " + r.getStatus());
