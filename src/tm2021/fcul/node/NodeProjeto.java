@@ -92,8 +92,15 @@ public class NodeProjeto {
                     String uidClient = reader.readLine();
                     System.out.println("Dinhero a transferir:");
                     String amountTransfer = reader.readLine();
-                    uidClient = zookeeperSearch.findIpFromId(uidClient);
-                    new Thread(new Client(uidClient,Integer.parseInt(amountTransfer))).start();
+                    int amount = Integer.parseInt(amountTransfer);
+                    int realamount = nodeResource.getNode(id).getAmount();
+                    if(amount > realamount){
+                        System.out.println("Ups! Não tens saldo para esta transferencia descentralizada");
+                        System.out.println("O teu saldo disponivel é: " + realamount);
+                    }else{
+                        uidClient = zookeeperSearch.findIpFromId(uidClient);
+                        new Thread(new Client(uidClient,amount)).start();
+                    }
                     break;
                 case "2":
                     System.out.println(nodeResource.getAmount(id));

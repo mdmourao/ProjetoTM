@@ -1,5 +1,6 @@
 package tm2021.fcul.node.resources;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import jakarta.inject.Singleton;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.api.service.RestNode;
+import tm2021.fcul.node.NodeProjeto;
 import tm2021.fcul.node.services.GossipClient;
 
 @Singleton
@@ -35,6 +37,10 @@ public class NodeResource implements RestNode {
 		}
 		n.setAmount(n.getAmount() + amount);
 		listNodes.put(n.getNodeId(),n);
+		Date date = new Date();
+		long timeMilli = date.getTime();
+		String idRetrans = nodeId + timeMilli;
+		new Thread(new GossipClient(nodeId,idRetrans,n.getAmount(), NodeProjeto.numTTL)).start();
 		return amount;
 	}
 

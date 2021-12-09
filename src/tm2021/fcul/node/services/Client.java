@@ -11,6 +11,8 @@ import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.api.service.RestNode;
 import tm2021.fcul.node.NodeProjeto;
 
+import java.util.Date;
+
 public class Client implements Runnable {
 
     String idClient;
@@ -44,6 +46,13 @@ public class Client implements Runnable {
                 .put(Entity.entity(n, MediaType.APPLICATION_JSON));
         if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
             System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
+            Node neu = NodeProjeto.nodeResource.getNode(NodeProjeto.id);
+            neu.setAmount(neu.getAmount() - amount);
+            NodeProjeto.nodeResource.addNode(neu);
+            Date date = new Date();
+            long timeMilli = date.getTime();
+            String idRetrans = NodeProjeto.id + "00" +timeMilli;
+            new Thread(new GossipClient(neu.getNodeId(),idRetrans,neu.getAmount(),NodeProjeto.numTTL)).start();
         }else{
             System.out.println("Error, HTTP error status: " + r.getStatus());
         }
