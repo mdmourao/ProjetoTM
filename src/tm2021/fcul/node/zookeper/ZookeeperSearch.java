@@ -16,7 +16,7 @@ public class ZookeeperSearch{
         try {
             zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 

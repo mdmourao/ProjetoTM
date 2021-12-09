@@ -38,7 +38,7 @@ public class ClientGetAmount implements Runnable {
             System.out.println(actual);
 
         }else{
-            System.out.println("Error, HTTP error status: " + r.getStatus());
+            //System.out.println("Error, HTTP error status: " + r.getStatus());
         }
 
     }

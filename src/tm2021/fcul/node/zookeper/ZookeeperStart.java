@@ -17,17 +17,17 @@ public class ZookeeperStart implements Runnable {
             //zk.write(PATH, CreateMode.PERSISTENT);
 
             int pathHash = Math.abs(NodeProjeto.ip.hashCode());
-            System.out.println(pathHash);
+            //System.out.println(pathHash);
             PATH = PATH + "/" +pathHash;
 
             String value = NodeProjeto.ip;
             zk.write(PATH, value, CreateMode.EPHEMERAL);
 
-            System.out.println("ZOOKEPER INFO: " +  PATH + " PATH: "+ value);
+            //System.out.println("ZOOKEPER INFO: " +  PATH + " PATH: "+ value);
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
     }

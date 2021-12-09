@@ -1,5 +1,9 @@
 package tm2021.fcul.node;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.node.resources.NodeResource;
 import tm2021.fcul.node.services.*;
@@ -39,7 +43,7 @@ public class NodeProjeto {
 
 
     public static void main(String[] args) throws IOException {
-
+        Logger.getRootLogger().setLevel(Level.OFF);
         if(ip == ""){
             /*
             URL whatismyip = new URL("http://checkip.amazonaws.com");
@@ -71,9 +75,10 @@ public class NodeProjeto {
                 System.out.print(a);
                 TimeUnit.SECONDS.sleep(1);       
             }
+            System.out.println("");
             new Thread(new ZookeeperStart()).start();
         } catch (InterruptedException e) {       
-            e.printStackTrace();                 
+            //e.printStackTrace();
         }
 
         Thread t1 = new Thread(new Runnable() {
@@ -99,6 +104,8 @@ public class NodeProjeto {
 
         new Thread(new GossipClient(id,"",amount, numTTL)).start();
         System.out.println("Bem-Vindo");
+        System.out.println("O teu id é: " + id);
+        System.out.println("_____________________");
         System.out.println("Opção 1 - transfer (from, to, amount)");
         System.out.println("Opção 2 - Read (from)");
         System.out.println("Opção 3 - Descobrir Nodes");

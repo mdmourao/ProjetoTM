@@ -61,14 +61,14 @@ public class ZookeeperProcessor implements Watcher {
         try {
             return new String (Base64.getDecoder().decode(zk.getData(path, false, null)));
         } catch (KeeperException | InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
 
     @Override
     public void process(WatchedEvent event) {
-        System.out.println( event);
+        //System.out.println( event);
     }
 
 }

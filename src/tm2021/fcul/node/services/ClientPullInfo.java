@@ -41,7 +41,7 @@ public class ClientPullInfo implements Runnable {
             }
 
         }else{
-            System.out.println("Error, HTTP error status: " + r.getStatus());
+            //System.out.println("Error, HTTP error status: " + r.getStatus());
         }
 
     }

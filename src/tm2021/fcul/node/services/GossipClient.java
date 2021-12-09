@@ -33,9 +33,9 @@ public class GossipClient implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("DEBUG: comecei o gossip");
+        //System.out.println("DEBUG: comecei o gossip");
         List<String> listIPS = NodeProjeto.zookeeperSearch.getListIPs();
-        System.out.println("SIZE IPS " + listIPS.size());
+        //System.out.println("SIZE IPS " + listIPS.size());
 
         if(listIPS.size() > 1){
             for(int i = 0; i < NodeProjeto.numTTL; i ++){
@@ -64,9 +64,9 @@ public class GossipClient implements Runnable {
 
 
         if (r2.getStatus() == Response.Status.OK.getStatusCode() && r2.hasEntity()) {
-            System.out.println("RETRANS " + idRetrans + " Numero retrans " + numRetrans);
+            //System.out.println("RETRANS " + idRetrans + " Numero retrans " + numRetrans);
         } else {
-            System.out.println("Error RETRANS, HTTP error status: " + r2.getStatus());
+           // System.out.println("Error RETRANS, HTTP error status: " + r2.getStatus());
         }
 
     }
