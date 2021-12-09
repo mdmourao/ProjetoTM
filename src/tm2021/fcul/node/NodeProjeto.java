@@ -62,22 +62,18 @@ public class NodeProjeto {
 
         new Thread(new Server()).start();
         initNode();
-        new Thread(new ZookeeperStart()).start();
 
         try {
+            Random r = new Random();
+            int i = r.nextInt(3) + 7 ;
             System.out.println("Aguarde a iniciar o sistema em:");
-            TimeUnit.SECONDS.sleep(1);
-            System.out.print(1);
-            TimeUnit.SECONDS.sleep(1);
-            System.out.print(2);
-            TimeUnit.SECONDS.sleep(1);
-            System.out.print(3);
-            TimeUnit.SECONDS.sleep(1);
-            System.out.print(4);
-            TimeUnit.SECONDS.sleep(1);
-            System.out.println(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            for(int a = 0; a < i;a++){
+                System.out.println(a);
+                TimeUnit.SECONDS.sleep(1);       
+            }
+            new Thread(new ZookeeperStart()).start();
+        } catch (InterruptedException e) {       
+            e.printStackTrace();                 
         }
 
         Thread t1 = new Thread(new Runnable() {
@@ -108,6 +104,7 @@ public class NodeProjeto {
         System.out.println("Opção 3 - Descobrir Nodes");
         System.out.println("Opção 4 - Saldos que tenho conhecimento");
         System.out.println("Opção 5 - Read (from)");
+        System.out.println("Opção 6 - total de nodes eu conheço");
         while(true){
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             String opcao = reader.readLine();
@@ -145,6 +142,9 @@ public class NodeProjeto {
                     }else{
                         new Thread(new ClientGetAmount(uidClient)).start();
                     }
+                    break;
+                case "6":
+                    System.out.println(nodeResource.getAllTransacoes().size());
                     break;
             }
         }

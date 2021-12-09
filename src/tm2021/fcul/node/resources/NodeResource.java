@@ -22,7 +22,7 @@ public class NodeResource implements RestNode {
 	
 	public NodeResource() {
 	}
-
+	
 
 	@Override
 	public int updateAmount(String nodeId, int amount, String nodeFrom, Node node) {
