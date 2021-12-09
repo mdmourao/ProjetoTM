@@ -9,10 +9,20 @@ import java.util.List;
 public class ZookeeperSearch{
     String PATH = "/node";
 
-    public void searchNodes() {
-        final ZookeeperProcessor zk;
+    public static ZookeeperProcessor zk;
+
+    static {
         try {
             zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void searchNodes() {
+
+        try {
+
             List<String> lst = zk.getChildren( PATH);
             for(String i : lst){
                 System.out.println(i);
@@ -25,9 +35,9 @@ public class ZookeeperSearch{
     }
 
     public List<String> getListIPs() {
-        final ZookeeperProcessor zk;
+
         try {
-            zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
+
             List<String> lst = zk.getChildren( PATH);
             List<String> listIPs = new ArrayList<>();
             for (String i : lst){
@@ -42,9 +52,9 @@ public class ZookeeperSearch{
     }
 
     public int nodesCount(){
-        final ZookeeperProcessor zk;
+
         try {
-            zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
+
             List<String> lst = zk.getChildren( PATH);
             return lst.size();
         } catch (Exception e) {
@@ -54,9 +64,9 @@ public class ZookeeperSearch{
     }
 
     public String findIpFromId(String id){
-        final ZookeeperProcessor zk;
+
         try {
-            zk = new ZookeeperProcessor( ZookeeperProcessor.ip);
+
             List<String> lst = zk.getChildren( PATH);
             for(String i: lst){
                 if(i.equals(id)){

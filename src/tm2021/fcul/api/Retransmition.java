@@ -5,17 +5,17 @@ public class Retransmition {
     private String idRetrans;
     private String nodeId;
     private int amount;
-    private int numberRetrans;
+    private int numberTTL;
 
     public Retransmition() {
 
     }
 
-    public Retransmition(String idRetrans, String nodeId, int amount, int numberRetrans) {
+    public Retransmition(String idRetrans, String nodeId, int amount, int numberTTL) {
         this.idRetrans = idRetrans;
         this.nodeId = nodeId;
         this.amount = amount;
-        this.numberRetrans = numberRetrans;
+        this.numberTTL = numberTTL;
     }
 
     public String getIdRetrans() {
@@ -42,12 +42,12 @@ public class Retransmition {
         this.amount = amount;
     }
 
-    public int getNumberRetrans() {
-        return numberRetrans;
+    public int getNumberTTL() {
+        return numberTTL;
     }
 
-    public void setNumberRetrans(int numberRetrans) {
-        this.numberRetrans = numberRetrans;
+    public void setNumberTTL(int numberTTL) {
+        this.numberTTL = numberTTL;
     }
 
 
@@ -57,7 +57,7 @@ public class Retransmition {
                 "idRetrans='" + idRetrans + '\'' +
                 ", nodeId='" + nodeId + '\'' +
                 ", amount=" + amount +
-                ", numberRetrans=" + numberRetrans +
+                ", numberRetrans=" + numberTTL +
                 '}';
     }
 

@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class NodeProjeto {
 
@@ -21,13 +22,12 @@ public class NodeProjeto {
     public static String ip = "" ;
     public static String id;
     public static int amount = 0;
-    public static int numRetrans = 2;
+    public static int numTTL = 4;
     public static NodeResource nodeResource = new NodeResource();
     public static ZookeeperSearch zookeeperSearch = new ZookeeperSearch();
 
 
     public static void initNode(){
-        int nodesCount = zookeeperSearch.nodesCount();
         Random random = new Random();
         int randomAmount = random.nextInt(100) + 1;
         amount = randomAmount;
@@ -40,6 +40,7 @@ public class NodeProjeto {
 
 
     public static void main(String[] args) throws IOException {
+
         if(ip == ""){
             /*
             URL whatismyip = new URL("http://checkip.amazonaws.com");
@@ -57,21 +58,31 @@ public class NodeProjeto {
         id = Integer.toString(Math.abs(NodeProjeto.ip.hashCode()));
 
 
-        Server s = new Server();
-        s.run();
-
-
-
-        ZookeeperStart zp = new ZookeeperStart();
-        zp.run();
+        new Thread(new Server()).start();
         initNode();
-        GossipClient gc = new GossipClient(id,"",amount,numRetrans);
-        gc.run();
+        new Thread(new ZookeeperStart()).start();
+        try {
+            System.out.println("Aguarde a iniciar o sistema em:");
+            TimeUnit.SECONDS.sleep(1);
+            System.out.print(1);
+            TimeUnit.SECONDS.sleep(1);
+            System.out.print(2);
+            TimeUnit.SECONDS.sleep(1);
+            System.out.print(3);
+            TimeUnit.SECONDS.sleep(1);
+            System.out.print(4);
+            TimeUnit.SECONDS.sleep(1);
+            System.out.println(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        new Thread(new GossipClient(id,"",amount, numTTL)).start();
         System.out.println("Bem-Vindo");
         while(true){
             System.out.println("Opção 1 - Transferir Dinheiro");
             System.out.println("Opção 2 - Consultar Saldo");
             System.out.println("Opção 3 - Descobrir Nodes");
+            System.out.println("Opção 4 - Saldos que tenho conhecimento");
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             String opcao = reader.readLine();
             switch (opcao){
@@ -82,8 +93,7 @@ public class NodeProjeto {
                     System.out.println("Dinhero a transferir:");
                     String amountTransfer = reader.readLine();
                     uidClient = zookeeperSearch.findIpFromId(uidClient);
-                    Client c = new Client(uidClient,Integer.parseInt(amountTransfer));
-                    c.run();
+                    new Thread(new Client(uidClient,Integer.parseInt(amountTransfer))).start();
                     break;
                 case "2":
                     System.out.println(nodeResource.getAmount(id));
@@ -92,7 +102,7 @@ public class NodeProjeto {
                     zookeeperSearch.searchNodes();
                     break;
                 case "4":
-                    System.out.println(zookeeperSearch.findIpFromId(id));
+                    nodeResource.estadolista();
                     break;
             }
         }

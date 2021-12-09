@@ -20,6 +20,7 @@ public class Server implements Runnable {
     @Override
     public void run() {
         try {
+
             String ip = NodeProjeto.ip;
 
             ResourceConfig config = new ResourceConfig();

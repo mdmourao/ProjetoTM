@@ -45,10 +45,9 @@ public class NodeResource implements RestNode {
 		if(r == null){
 			Node n = new Node(retr.getNodeId(),retr.getAmount());
 			listNodes.put(n.getNodeId(),n);
-			int numR = retr.getNumberRetrans() - 1;
+			int numR = retr.getNumberTTL() - 1;
 			if(numR >= 0){
-				GossipClient gc = new GossipClient(retr.getNodeId(),retr.getIdRetrans(),retr.getAmount(),numR);
-				gc.run();
+				new Thread(new GossipClient(retr.getNodeId(),retr.getIdRetrans(),retr.getAmount(),numR)).start();
 			}
 			listRetrans.put(retr.getIdRetrans(),r);
 		}
@@ -71,7 +70,12 @@ public class NodeResource implements RestNode {
 	}
 
 
-
+	public void estadolista(){
+		for(String i : listNodes.keySet()){
+			System.out.println(listNodes.get(i).getNodeId());
+			System.out.println(listNodes.get(i).getAmount());
+		}
+	}
 
 
 }
