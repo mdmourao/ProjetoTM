@@ -12,6 +12,7 @@ import tm2021.fcul.api.service.RestNode;
 import tm2021.fcul.node.NodeProjeto;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Client implements Runnable {
 
@@ -41,18 +42,25 @@ public class Client implements Runnable {
         System.out.println(url);
         System.out.println(target.getUri());
 
-        Response r = target.path(idClient).queryParam("amount", amount).request()
+        Response r = target.path(idClient).queryParam("amount", amount).queryParam("nodeFrom",NodeProjeto.id).request()
                 .accept(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(n, MediaType.APPLICATION_JSON));
-        if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
-            System.out.println("Success, updated amount with id: " + r.readEntity(String.class));
-            Node neu = NodeProjeto.nodeResource.getNode(NodeProjeto.id);
-            neu.setAmount(neu.getAmount() - amount);
-            NodeProjeto.nodeResource.addNode(neu);
-            Date date = new Date();
-            long timeMilli = date.getTime();
-            String idRetrans = NodeProjeto.id + "00" +timeMilli;
-            new Thread(new GossipClient(neu.getNodeId(),idRetrans,neu.getAmount(),NodeProjeto.numTTL)).start();
+        if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity() ){
+            int amount = r.readEntity(int.class);
+            if(amount != -1){
+                System.out.println("Recebeste o seguinte valor na tua conta: " + amount);
+                Node neu = NodeProjeto.nodeResource.getNode(NodeProjeto.id);
+                neu.setAmount(neu.getAmount() - this.amount);
+                NodeProjeto.nodeResource.addNode(neu);
+                Date date = new Date();
+                long timeMilli = date.getTime();
+                String idRetrans = NodeProjeto.id + "00" +timeMilli;
+                new Thread(new GossipClient(neu.getNodeId(),idRetrans,neu.getAmount(),NodeProjeto.numTTL)).start();
+            }else{
+                //consideramos que este node possa estar a tentar ser malicioso.
+                System.out.println("Ups! Esta transferencia não pode ser realizada. Tenta de novo mais tarde.");
+            }
+
         }else{
             System.out.println("Error, HTTP error status: " + r.getStatus());
         }

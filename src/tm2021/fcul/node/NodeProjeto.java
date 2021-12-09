@@ -2,10 +2,7 @@ package tm2021.fcul.node;
 
 import tm2021.fcul.api.Node;
 import tm2021.fcul.node.resources.NodeResource;
-import tm2021.fcul.node.services.Client;
-import tm2021.fcul.node.services.ClientGetAmount;
-import tm2021.fcul.node.services.GossipClient;
-import tm2021.fcul.node.services.Server;
+import tm2021.fcul.node.services.*;
 import tm2021.fcul.node.zookeper.*;
 
 import java.io.BufferedReader;
@@ -13,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -32,11 +30,11 @@ public class NodeProjeto {
         Random random = new Random();
         int randomAmount = random.nextInt(100) + 1;
         amount = randomAmount;
-
         Node n = new Node(id, randomAmount);
-
         nodeResource.addNode(n);
     }
+
+
 
 
 
@@ -59,9 +57,13 @@ public class NodeProjeto {
         id = Integer.toString(Math.abs(NodeProjeto.ip.hashCode()));
 
 
+
+
+
         new Thread(new Server()).start();
         initNode();
         new Thread(new ZookeeperStart()).start();
+
         try {
             System.out.println("Aguarde a iniciar o sistema em:");
             TimeUnit.SECONDS.sleep(1);
@@ -77,6 +79,28 @@ public class NodeProjeto {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String ipRandom = zookeeperSearch.getRandomIdFromZK();
+                if(!Objects.equals(ipRandom, "")){
+                    new Thread(new ClientPullInfo(ipRandom)).start();
+                }
+                ipRandom = zookeeperSearch.getRandomIdFromZK();
+                if(!Objects.equals(ipRandom, "")){
+                    new Thread(new ClientPullInfo(ipRandom)).start();
+                }
+                ipRandom = zookeeperSearch.getRandomIdFromZK();
+                if(!Objects.equals(ipRandom, "")){
+                    new Thread(new ClientPullInfo(ipRandom)).start();
+                }
+            }
+        });
+         t1.start();
+
+
+
         new Thread(new GossipClient(id,"",amount, numTTL)).start();
         System.out.println("Bem-Vindo");
         System.out.println("Opção 1 - Transferir Dinheiro");
@@ -119,7 +143,7 @@ public class NodeProjeto {
                     if(nodeResource.getAmount(uidClient) != -1){
                         System.out.println(nodeResource.getAmount(uidClient));
                     }else{
-                        new Thread(new ClientGetAmount(zookeeperSearch.findIpFromId(uidClient))).start();
+                        new Thread(new ClientGetAmount(uidClient)).start();
                     }
                     break;
             }

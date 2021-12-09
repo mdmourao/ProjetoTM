@@ -5,6 +5,9 @@ import jakarta.ws.rs.core.MediaType;
 import tm2021.fcul.api.*;
 import tm2021.fcul.api.Retransmition;
 
+import java.util.List;
+import java.util.Map;
+
 @Path(RestNode.PATH)
 public interface RestNode {
 
@@ -15,8 +18,9 @@ public interface RestNode {
 	/**
 	 * Modifies the information of a user. Values of null in any field of the user will be 
 	 * considered as if the the fields is not to be modified (the name cannot be modified).
-	 * @param userId the name of the user
+	 * @param nodeId the name of the user
 	 * @param amount password of the user
+	 * @param nodeFrom psss
 	 * @param node Updated information
 	 * @return 200 the updated user object, if the name exists and password matches the
 	 *         existing password 
@@ -27,7 +31,7 @@ public interface RestNode {
 	@Path("/nodes/{nodeId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	int updateAmount(@PathParam("nodeId") String userId, @QueryParam("amount") int amount, Node node);
+	int updateAmount(@PathParam("nodeId") String nodeId, @QueryParam("amount") int amount, @QueryParam("nodeFrom") String nodeFrom,Node node);
 
 	/**
 	 * Modifies the information of a user. Values of null in any field of the user will be
@@ -55,6 +59,20 @@ public interface RestNode {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	int sendRetrans(Retransmition retr);
+
+	/**
+	 * Modifies the information of a user. Values of null in any field of the user will be
+	 * considered as if the the fields is not to be modified (the name cannot be modified).
+	 * @return 200 the updated user object, if the name exists and password matches the
+	 *         existing password
+	 *         403 if the password is incorrect or the user does not exist
+	 *         409 otherwise
+	 */
+	@GET
+	@Path("/transacoes")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	Map<String, Node> getAllTransacoes();
 
 
 }

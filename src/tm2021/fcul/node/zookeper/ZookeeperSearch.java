@@ -5,6 +5,7 @@ import org.apache.zookeeper.Watcher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ZookeeperSearch{
     String PATH = "/node";
@@ -32,6 +33,23 @@ public class ZookeeperSearch{
 
         }
 
+    }
+
+    public String getRandomIdFromZK() {
+
+        try {
+            List<String> lst = zk.getChildren( PATH);
+            Random r = new Random();
+            if(lst.size() > 1){
+                int posR = r.nextInt(lst.size());
+                return lst.get(posR);
+            }else{
+                return "";
+            }
+        } catch (Exception e) {
+
+        }
+        return "";
     }
 
     public List<String> getListIPs() {

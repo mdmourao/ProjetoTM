@@ -1,8 +1,6 @@
 package tm2021.fcul.node.resources;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 import jakarta.inject.Singleton;
@@ -27,13 +25,13 @@ public class NodeResource implements RestNode {
 
 
 	@Override
-	public int updateAmount(String nodeId, int amount, Node node) {
+	public int updateAmount(String nodeId, int amount, String nodeFrom, Node node) {
 		Log.info("updateAmount : nodeID: = " + nodeId + "; amount = " + amount + " ; node = " + node);
 		nodeId = Integer.toString(Math.abs(nodeId.hashCode()));
 		Node n = listNodes.get(nodeId);
-		if(n==null){
-			n = new Node(nodeId, 0);
-			listNodes.put(nodeId, n);
+		Node nFrom = listNodes.get(nodeFrom);
+		if(nFrom==null){
+			return -1;
 		}
 		n.setAmount(n.getAmount() + amount);
 		listNodes.put(n.getNodeId(),n);
@@ -65,10 +63,17 @@ public class NodeResource implements RestNode {
 		return 0;
 	}
 
+	@Override
+	public Map<String,Node> getAllTransacoes() {
+		return listNodes;
+	}
+
 
 	public Node getNode(String id){
 		return listNodes.get(id);
 	}
+
+
 
 
 

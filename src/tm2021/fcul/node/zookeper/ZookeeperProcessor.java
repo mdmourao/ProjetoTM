@@ -13,7 +13,7 @@ import org.apache.zookeeper.ZooKeeper;
 public class ZookeeperProcessor implements Watcher {
     private ZooKeeper zk;
     // IP onde o zookeeper principal corre
-    public static String ip = "13.38.99.224:2181";
+    public static String ip = "52.47.190.125:2181";
 
 
     public ZookeeperProcessor( String hostPort) throws Exception {
