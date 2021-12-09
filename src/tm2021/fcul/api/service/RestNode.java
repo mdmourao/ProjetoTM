@@ -30,6 +30,20 @@ public interface RestNode {
 	int updateAmount(@PathParam("nodeId") String userId, @QueryParam("amount") int amount, Node node);
 
 	/**
+	 * Modifies the information of a user. Values of null in any field of the user will be
+	 * considered as if the the fields is not to be modified (the name cannot be modified).
+	 * @return 200 the updated user object, if the name exists and password matches the
+	 *         existing password
+	 *         403 if the password is incorrect or the user does not exist
+	 *         409 otherwise
+	 */
+	@GET
+	@Path("/nodes/{nodeId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	int getAmountFrom();
+
+	/**
 	 * @param retr retrans
 	 * @return 200 OK
 	 *         existing password

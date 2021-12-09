@@ -45,6 +45,11 @@ public class NodeResource implements RestNode {
 	}
 
 	@Override
+	public int getAmountFrom() {
+		return listNodes.get(NodeProjeto.id).getAmount();
+	}
+
+	@Override
 	public int sendRetrans( Retransmition retr) {
 
 		Retransmition r = listRetrans.get(retr.getIdRetrans());
@@ -68,7 +73,12 @@ public class NodeResource implements RestNode {
 
 
 	public int getAmount(String id){
-		return listNodes.get(id).getAmount();
+		if(listNodes.get(id) != null){
+			return listNodes.get(id).getAmount();
+		}else{
+			return -1;
+		}
+
 	}
 
 	public void addNode(Node n){

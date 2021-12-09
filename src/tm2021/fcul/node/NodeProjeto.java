@@ -3,6 +3,7 @@ package tm2021.fcul.node;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.node.resources.NodeResource;
 import tm2021.fcul.node.services.Client;
+import tm2021.fcul.node.services.ClientGetAmount;
 import tm2021.fcul.node.services.GossipClient;
 import tm2021.fcul.node.services.Server;
 import tm2021.fcul.node.zookeper.*;
@@ -78,11 +79,12 @@ public class NodeProjeto {
         }
         new Thread(new GossipClient(id,"",amount, numTTL)).start();
         System.out.println("Bem-Vindo");
+        System.out.println("Opção 1 - Transferir Dinheiro");
+        System.out.println("Opção 2 - Consultar Saldo");
+        System.out.println("Opção 3 - Descobrir Nodes");
+        System.out.println("Opção 4 - Saldos que tenho conhecimento");
+        System.out.println("Opção 5 - Read (from)");
         while(true){
-            System.out.println("Opção 1 - Transferir Dinheiro");
-            System.out.println("Opção 2 - Consultar Saldo");
-            System.out.println("Opção 3 - Descobrir Nodes");
-            System.out.println("Opção 4 - Saldos que tenho conhecimento");
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             String opcao = reader.readLine();
             switch (opcao){
@@ -110,6 +112,15 @@ public class NodeProjeto {
                     break;
                 case "4":
                     nodeResource.estadolista();
+                    break;
+                case "5":
+                    System.out.println("UID do cliente:");
+                    uidClient = reader.readLine();
+                    if(nodeResource.getAmount(uidClient) != -1){
+                        System.out.println(nodeResource.getAmount(uidClient));
+                    }else{
+                        new Thread(new ClientGetAmount(zookeeperSearch.findIpFromId(uidClient))).start();
+                    }
                     break;
             }
         }
