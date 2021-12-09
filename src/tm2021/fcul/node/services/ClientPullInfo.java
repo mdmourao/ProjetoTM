@@ -1,5 +1,6 @@
 package tm2021.fcul.node.services;
 
+import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
@@ -9,6 +10,7 @@ import org.glassfish.jersey.client.ClientConfig;
 import tm2021.fcul.api.Node;
 import tm2021.fcul.node.NodeProjeto;
 
+import java.net.ConnectException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,21 +32,20 @@ public class ClientPullInfo implements Runnable {
         String url = "http://" + ip + ":8081" + "/rest/transacoes";
         WebTarget target = client.target(url);
 
-
-        Response r = target.request()
-                .accept(MediaType.APPLICATION_JSON)
-                .get();
-        if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
-            HashMap<String, Node> actual = r.readEntity(new GenericType<HashMap<String, Node>>() { });
-            for(String i : actual.keySet()){
-                NodeProjeto.nodeResource.addNode(actual.get(i));
+        try{
+            Response r = target.request()
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get();
+            if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
+                HashMap<String, Node> actual = r.readEntity(new GenericType<HashMap<String, Node>>() { });
+                for(String i : actual.keySet()){
+                    NodeProjeto.nodeResource.addNode(actual.get(i));
+                }
             }
+        }catch(ProcessingException i1){
 
-        }else{
-            //System.out.println("Error, HTTP error status: " + r.getStatus());
-        }
-
+            }
     }
 
 
-}
+    }

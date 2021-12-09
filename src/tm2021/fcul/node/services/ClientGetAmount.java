@@ -1,8 +1,10 @@
 package tm2021.fcul.node.services;
 
+import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
@@ -10,6 +12,7 @@ import tm2021.fcul.api.Node;
 import tm2021.fcul.node.NodeProjeto;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public class ClientGetAmount implements Runnable {
 
@@ -30,16 +33,22 @@ public class ClientGetAmount implements Runnable {
         WebTarget target = client.target(url);
 
 
-        Response r = target.path(idClient).request()
-                .accept(MediaType.APPLICATION_JSON)
-                .get();
-        if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
-            String actual = r.readEntity(String.class);
-            System.out.println(actual);
+        try{
+            Response r = target.path(idClient).request()
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get();
+            if (r.getStatus() == Response.Status.OK.getStatusCode() && r.hasEntity()){
+                String actual = r.readEntity(String.class);
+                System.out.println(actual);
 
-        }else{
-            //System.out.println("Error, HTTP error status: " + r.getStatus());
+            }else{
+                //System.out.println("Error, HTTP error status: " + r.getStatus());
+            }
+        }catch(ProcessingException i1){
+
         }
+
+
 
     }
 

@@ -1,16 +1,20 @@
 package tm2021.fcul.node.services;
 
+import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
+import tm2021.fcul.api.Node;
 import tm2021.fcul.api.Retransmition;
 import tm2021.fcul.node.NodeProjeto;
 import tm2021.fcul.node.resources.NodeResource;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -54,20 +58,19 @@ public class GossipClient implements Runnable {
             long timeMilli = date.getTime();
             idRetrans = id + "00" +timeMilli;
         }
-        Retransmition retrans = new Retransmition(idRetrans, id, amount, numRetrans);
-        NodeResource.listRetrans.put(retrans.getIdRetrans(),retrans);
-        Response r2 = client.target(url2)
-                .request().header("null",null)
-                .accept(MediaType.APPLICATION_JSON)
-                .put(Entity.entity(retrans, MediaType.APPLICATION_JSON));
 
+        try{
+            Retransmition retrans = new Retransmition(idRetrans, id, amount, numRetrans);
+            NodeResource.listRetrans.put(retrans.getIdRetrans(),retrans);
+            Response r2 = client.target(url2)
+                    .request().header("null",null)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .put(Entity.entity(retrans, MediaType.APPLICATION_JSON));
+        }catch(ProcessingException i1){
 
-
-        if (r2.getStatus() == Response.Status.OK.getStatusCode() && r2.hasEntity()) {
-            //System.out.println("RETRANS " + idRetrans + " Numero retrans " + numRetrans);
-        } else {
-           // System.out.println("Error RETRANS, HTTP error status: " + r2.getStatus());
         }
+
+
 
     }
 }

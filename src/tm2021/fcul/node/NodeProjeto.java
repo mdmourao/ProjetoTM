@@ -44,6 +44,7 @@ public class NodeProjeto {
 
     public static void main(String[] args) throws IOException {
         Logger.getRootLogger().setLevel(Level.OFF);
+        org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.OFF);
         if(ip == ""){
             /*
             URL whatismyip = new URL("http://checkip.amazonaws.com");
