@@ -68,7 +68,7 @@ public class NodeProjeto {
             int i = r.nextInt(3) + 7 ;
             System.out.println("Aguarde a iniciar o sistema em:");
             for(int a = 0; a < i;a++){
-                System.out.println(a);
+                System.out.print(a);
                 TimeUnit.SECONDS.sleep(1);       
             }
             new Thread(new ZookeeperStart()).start();
@@ -99,11 +99,12 @@ public class NodeProjeto {
 
         new Thread(new GossipClient(id,"",amount, numTTL)).start();
         System.out.println("Bem-Vindo");
-        System.out.println("Opção 1 - Transferir Dinheiro");
-        System.out.println("Opção 2 - Consultar Saldo");
+        System.out.println("Opção 1 - transfer (from, to, amount)");
+        System.out.println("Opção 2 - Read (from)");
         System.out.println("Opção 3 - Descobrir Nodes");
-        System.out.println("Opção 4 - Saldos que tenho conhecimento");
-        System.out.println("Opção 5 - Read (from)");
+        System.out.println("Opção 4 - Consultar o meu saldo");
+        System.out.println("DEBUG:");
+        System.out.println("Opção 5 - Saldos que tenho conhecimento ");
         System.out.println("Opção 6 - total de nodes eu conheço");
         while(true){
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -126,15 +127,6 @@ public class NodeProjeto {
                     }
                     break;
                 case "2":
-                    System.out.println(nodeResource.getAmount(id));
-                    break;
-                case "3":
-                    zookeeperSearch.searchNodes();
-                    break;
-                case "4":
-                    nodeResource.estadolista();
-                    break;
-                case "5":
                     System.out.println("UID do cliente:");
                     uidClient = reader.readLine();
                     if(nodeResource.getAmount(uidClient) != -1){
@@ -142,6 +134,15 @@ public class NodeProjeto {
                     }else{
                         new Thread(new ClientGetAmount(uidClient)).start();
                     }
+                    break;
+                case "3":
+                    zookeeperSearch.searchNodes();
+                    break;
+                case "4":
+                    System.out.println(nodeResource.getAmount(id));
+                    break;
+                case "5":
+                    nodeResource.estadolista();
                     break;
                 case "6":
                     System.out.println(nodeResource.getAllTransacoes().size());
