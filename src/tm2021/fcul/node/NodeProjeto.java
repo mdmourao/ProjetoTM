@@ -25,7 +25,7 @@ public class NodeProjeto {
     public static String ip = "" ;
     public static String id;
     public static int amount = 0;
-    public static int numTTL = 4;
+    public static int numTTL = 5;
     public static NodeResource nodeResource = new NodeResource();
     public static ZookeeperSearch zookeeperSearch = new ZookeeperSearch();
 
@@ -119,23 +119,35 @@ public class NodeProjeto {
             String opcao = reader.readLine();
             switch (opcao){
                 case "1":
-                    //TODO
                     System.out.println("UID do cliente:");
                     String uidClient = reader.readLine();
                     System.out.println("Dinhero a transferir:");
                     String amountTransfer = reader.readLine();
-                    int amount = Integer.parseInt(amountTransfer);
-                    int realamount = nodeResource.getNode(id).getAmount();
-                    if(amount > realamount){
-                        System.out.println("Ups! Não tens saldo para esta transferencia descentralizada");
-                        System.out.println("O teu saldo disponivel é: " + realamount);
-                    }else{
-                        uidClient = zookeeperSearch.findIpFromId(uidClient);
-                        if(uidClient == "") {
-                            System.out.println("Este UID não se encontra disponivel. Tente mais tarde!");
-                        }else {
-                            new Thread(new Client(uidClient,amount)).start();
+                    int amount = 0;
+                    try {
+                        amount = Integer.parseInt(amountTransfer);
+                        int realamount = nodeResource.getNode(id).getAmount();
+                        if(amount > realamount){
+                            System.out.println("Ups! Não tens saldo para esta transferencia descentralizada");
+                            System.out.println("O teu saldo disponivel é: " + realamount);
+                        }else{
+                            uidClient = zookeeperSearch.findIpFromId(uidClient);
+                            if(uidClient == "") {
+                                System.out.println("Este UID não se encontra disponivel. Tente mais tarde!");
+                            }else {
+                                Thread t = new Thread(new Client(uidClient,amount));
+                                t.start();
+                                try {
+                                    System.out.println("Aguarde! A transferir o dinheiro...");
+                                    t.join();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Input invalido. Exemplo de amount: 10. Tenta realizar a transferencia novamente!");
+                        break;
                     }
                     break;
                 case "2":

@@ -31,7 +31,6 @@ public class ClientPullInfo implements Runnable {
         String ip = NodeProjeto.zookeeperSearch.findIpFromId(idClient);
         String url = "http://" + ip + ":8081" + "/rest/transacoes";
         WebTarget target = client.target(url);
-
         try{
             Response r = target.request()
                     .accept(MediaType.APPLICATION_JSON)
@@ -43,9 +42,6 @@ public class ClientPullInfo implements Runnable {
                 }
             }
         }catch(ProcessingException i1){
-
             }
     }
-
-
-    }
+}

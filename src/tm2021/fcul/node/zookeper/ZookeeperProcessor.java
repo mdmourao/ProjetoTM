@@ -13,7 +13,8 @@ import org.apache.zookeeper.ZooKeeper;
 public class ZookeeperProcessor implements Watcher {
     private ZooKeeper zk;
     // IP onde o zookeeper principal corre
-    public static String ip = "52.47.190.125:2181";
+    // funciona com ips da aws, para não passamos o limite do free tier encontra-se desligado
+    public static String ip = "13.38.20.35:2181";
 
 
     public ZookeeperProcessor( String hostPort) throws Exception {

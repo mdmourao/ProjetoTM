@@ -37,10 +37,7 @@ public class GossipClient implements Runnable {
 
     @Override
     public void run() {
-        //System.out.println("DEBUG: comecei o gossip");
         List<String> listIPS = NodeProjeto.zookeeperSearch.getListIPs();
-        //System.out.println("SIZE IPS " + listIPS.size());
-
         if(listIPS.size() > 1){
             for(int i = 0; i < NodeProjeto.numTTL; i ++){
                 Random random = new Random();
@@ -52,13 +49,11 @@ public class GossipClient implements Runnable {
 
     public void sendRequest(String ipClient) {
         String url2 = "http://" + ipClient + ":8081" + "/rest/retrans/";
-
         if(idRetrans == ""){
             Date date = new Date();
             long timeMilli = date.getTime();
             idRetrans = id + "00" +timeMilli;
         }
-
         try{
             Retransmition retrans = new Retransmition(idRetrans, id, amount, numRetrans);
             NodeResource.listRetrans.put(retrans.getIdRetrans(),retrans);
@@ -69,8 +64,5 @@ public class GossipClient implements Runnable {
         }catch(ProcessingException i1){
 
         }
-
-
-
     }
 }

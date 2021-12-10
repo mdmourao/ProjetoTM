@@ -1,4 +1,3 @@
-# base image - an image with openjdk  16
 FROM openjdk:17
 WORKDIR /home/tm
 COPY target/tm2021-lab2-1.0-jar-with-dependencies.jar /tm2021.jar

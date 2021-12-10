@@ -29,10 +29,15 @@ public class NodeResource implements RestNode {
 		nodeId = Integer.toString(Math.abs(nodeId.hashCode()));
 		Node n = listNodes.get(nodeId);
 		Node nFrom = listNodes.get(nodeFrom);
+		// nao tenho conhecimento deste node nao aceito o dinheiro dele
 		if(nFrom==null){
 			return -1;
 		}
-		if(nodeId == NodeProjeto.id){
+		// sei que o node nao tem este dinheiro para me dar
+		if(amount > listNodes.get(nodeFrom).getAmount()){
+			return -1;
+		}
+		if(nodeId.equals(NodeProjeto.id)){
 			System.out.println("Recebeu o seguinte o valor: " + amount);
 		}
 		n.setAmount(n.getAmount() + amount);
@@ -51,7 +56,6 @@ public class NodeResource implements RestNode {
 
 	@Override
 	public int sendRetrans( Retransmition retr) {
-
 		Retransmition r = listRetrans.get(retr.getIdRetrans());
 		if(r == null){
 			Node n = new Node(retr.getNodeId(),retr.getAmount());

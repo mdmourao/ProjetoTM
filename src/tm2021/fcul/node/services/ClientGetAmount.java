@@ -42,10 +42,10 @@ public class ClientGetAmount implements Runnable {
                 System.out.println("O saldo desse cliente é: "+actual);
 
             }else{
-                //System.out.println("Error, HTTP error status: " + r.getStatus());
+
             }
         }catch(ProcessingException i1){
-
+            System.out.println("Neste momento não é possivel ler o saldo deste UID");
         }
 
 

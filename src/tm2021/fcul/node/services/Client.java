@@ -26,7 +26,8 @@ public class Client implements Runnable {
     }
 
     ClientConfig config = new ClientConfig();
-    jakarta.ws.rs.client.Client client = ClientBuilder.newClient(config);
+    jakarta.ws.rs.client.Client client = ClientBuilder.newClient(config).property("jersey.config.client.connectTimeout", 3000);
+
 
     @Override
     public void run() {
@@ -38,12 +39,6 @@ public class Client implements Runnable {
         if(n==null){
             n = new Node(idClient, 0);
         }
-
-
-        System.out.println(url);
-        System.out.println(target.getUri());
-
-
         try{
             Response r = target.path(idClient).queryParam("amount", amount).queryParam("nodeFrom",NodeProjeto.id).request()
                     .accept(MediaType.APPLICATION_JSON)
@@ -65,11 +60,11 @@ public class Client implements Runnable {
                 }
 
             }else{
-                //System.out.println("Error, HTTP error status: " + r.getStatus());
+
             }
 
         }catch(ProcessingException i1){
-
+            System.out.println("A sua transferencia falhou... Tente novamente mais tarde!");
         }
 
 
