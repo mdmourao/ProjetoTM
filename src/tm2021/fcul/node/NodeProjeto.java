@@ -25,7 +25,7 @@ public class NodeProjeto {
     public static String ip = "" ;
     public static String id;
     public static int amount = 0;
-    public static int numTTL = 5;
+    public static int numTTL = 7;
     public static NodeResource nodeResource = new NodeResource();
     public static ZookeeperSearch zookeeperSearch = new ZookeeperSearch();
 
@@ -86,6 +86,10 @@ public class NodeProjeto {
             @Override
             public void run() {
                 String ipRandom = zookeeperSearch.getRandomIdFromZK();
+                if(!Objects.equals(ipRandom, "")){
+                    new Thread(new ClientPullInfo(ipRandom)).start();
+                }
+                ipRandom = zookeeperSearch.getRandomIdFromZK();
                 if(!Objects.equals(ipRandom, "")){
                     new Thread(new ClientPullInfo(ipRandom)).start();
                 }
